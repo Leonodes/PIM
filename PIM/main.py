@@ -4,14 +4,13 @@ def createNote(note_to_insert):
         lines = file.readlines()
     # find "task"
     word_to_find = "Task"
-    line_num = None
-    i = 0
+    # line_num = None
+    
     for i, line in enumerate(lines):
-        print(i)
         if word_to_find in line:
             line_num = i
-            break
-        
+            print(i)
+            break 
     print(line_num)
     if line_num == None:
         return
@@ -25,12 +24,6 @@ def createNote(note_to_insert):
             file.write(line)
 
 
-def createTask():
-    pass
-def createContact():
-    pass
-def createEvent():
-    pass
 def create():
     # create quick notes, task, contact, event
     print("1. Create Quick Notes\n")
@@ -44,15 +37,15 @@ def create():
             createNote(notes) #save notes
             print("")
         elif command == 2:
-            createTask()
+            pass
         elif command == 3:
-            createContact()
+            pass
         elif command == 4:
-            createEvent()
+            pass
         else:
             command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
 
-
+#main
 def main():
     print("Hi! Here is Personal Information Manager. Please choose what you want to do.\n")
     print("1. Create Personal Information Records.\n")
