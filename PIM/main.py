@@ -1,3 +1,55 @@
+class Note:
+    def __init__(self,content):
+        self.content = content
+    def display(self):
+        print(self.content)
+    def detail_display(self):
+        print("The content for this note is {}".format(self.content))
+
+# class deadline:
+#     def __init__(self, d_date, d_time):
+#         self.d_date = d_date
+#         self.d_time = d_time
+        
+#     def display(self):
+#         print(self.d_date, " ", self.d_time)
+
+class Task:
+    def __init__(self, description, deadline):
+        self.description = description
+        self.deadline = deadline
+    def display(self):
+        print(self.description)
+        print(self.deadline)
+    def detail_display(self):
+        print("The task is {}".format(self.description))
+        print("The deadline for this task is {}".format(self.deadline))
+
+class Event:
+    def __init__(self, description, start_time, alarm):
+        self.description = description
+        self.start_time = start_time
+        self.alarm = alarm
+    def display(self):
+        print(self.description)
+        print(self.start_time)
+        print(self.alarm)
+    def detail_display(self):
+        print("The event is {}".format(self.description))
+        print("The event starts at {}". format(self.start_time))
+        print("The system will alarm you at {}".format(self.alarm))
+
+class Contact:
+    def __init__(self, name, address, mobile_num):
+        self.name = name
+        self.address = address
+        self.mobile_num = mobile_num
+    def display(self):
+        print(self.name)
+        print(self.address)
+        print(self.mobile_num)
+        
+
 def createNote(note_to_insert):
     
     with open("records.pim", "r") as file:
