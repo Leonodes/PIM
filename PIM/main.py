@@ -1,5 +1,12 @@
-from PIR import Note, Task, Event, Contact
-from PIR_view import NoteView, TaskView, EventView, ContactView
+from PIRNote import Note
+from PIRTask import Task
+from PIREvent import Event
+from PIRContact import Contact
+import NoteView
+import TaskView 
+import EventView
+import ContactView
+from PIRController import PIRController
 
 def createNote(note_to_insert):
     
@@ -47,6 +54,8 @@ def create():
             pass
         else:
             command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
+
+
 
 #main
 def main():
