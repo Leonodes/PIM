@@ -2,7 +2,10 @@ from PIRNote import Note
 from PIRContact import Contact
 from PIRTask import Task
 from PIREvent import Event
-from PIR_view import NoteView, TaskView, EventView, ContactView
+import NoteView
+import TaskView
+import EventView
+import ContactView
 
 class PIRController:
     def __init__(self, model, view):
@@ -10,4 +13,4 @@ class PIRController:
         self.view = view
     # def setNoteContent(self, content):
         # self.model.setContent(content)
-    
+
