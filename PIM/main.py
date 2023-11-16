@@ -33,7 +33,6 @@ def createNote(note_to_insert):
                 file.write(note_to_insert + "\n")
             file.write(line)
 
-
 def create():
     # create quick notes, task, contact, event
     print("1. Create Quick Notes\n")
@@ -55,6 +54,42 @@ def create():
         else:
             command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
 
+# def searchMobileNo(Mobile_No):
+#     with open("records.pim", "r") as file:
+#         lines = file.readlines()
+#     #search the mobile no.
+#     for i, line in enumerate(lines):
+#         if Mobile_No in line:
+#             line_num = i
+#             print(i)
+
+
+def search():
+    #search for PIRs based on criteria
+    print("Criteria:\n")
+    print("1. Note\n")
+    print("2. Description\n")
+    print("3. Name\n")
+    print("4. Adddress\n")
+    print("5. Mobile Number\n")
+    command = input("Please enter 1, 2, 3, 4, 5 to choose the criteria of what you want to search.\n")
+    # string command
+    command = int(input("Please enter 1, 2, 3, 4, 5 to choose what you want to do.\n"))
+    while True:
+        if command == 1:
+            pass
+        elif command == 2:
+            pass
+        elif command == 3:
+            pass
+        elif command == 4:
+            pass
+        elif command == 5:
+            Mobile_No = input("Please enter your mobile number: \n") # string
+            searchMobileNo(Mobile_No)
+        else:
+            command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
+
 
 
 #main
@@ -72,7 +107,8 @@ def main():
             print("create")
             create() # create PIR
         elif command == 2:
-            pass
+            print("search")
+            search() # search PIR
         elif command == 3:
             pass
         elif command == 4:
