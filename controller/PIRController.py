@@ -11,4 +11,3 @@ class PIRController:
         self.view = view
     # def setNoteContent(self, content):
         # self.model.setContent(content)
-
