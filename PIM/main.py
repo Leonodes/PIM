@@ -58,15 +58,64 @@ def create():
     else:
         command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
 
-# def searchMobileNo(Mobile_No):
-#     with open("records.pim", "r") as file:
-#         lines = file.readlines()
-#     #search the mobile no.
-#     for i, line in enumerate(lines):
-#         if Mobile_No in line:
-#             line_num = i
-#             print(i)
 
+def searchNote(file, Key_Note):
+    with open("records.pim", "r") as file:
+        lines = file.readlines()
+    #search the note
+        if Key_Note in lines:
+            print("the criteria is found in this file.") 
+            key = open(file, 'r')
+            print(key.read())
+        else:
+            print("The criteria is not found. Please try again.")
+
+def searchDescription(file, Key_Description):
+    with open("records.pim", "r") as file:
+        lines = file.readlines()
+    #search the mobile no.
+        if Key_Description in lines:
+            print("the criteria is found in this file.") 
+            key = open(file, 'r')
+            print(key.read())
+        else:
+            print("The criteria is not found. Please try again.")
+
+def searchName(file, Key_Name):
+    with open("records.pim", "r") as file:
+        lines = file.readlines()
+    #search the mobile no.
+        if Key_Name in lines:
+            #print out the content
+            print("the criteria is found in this file.") 
+            key = open(file, 'r')
+            print(key.read())
+        else:
+            print("The criteria is not found. Please try again.")
+
+def searchAddress(file, Key_Address):
+    with open("records.pim", "r") as file:
+        lines = file.readlines()
+    #search the mobile no.
+        if Key_Address in lines:
+            #print out the content
+            print("the criteria is found in this file.") 
+            key = open(file, 'r')
+            print(key.read())
+        else:
+            print("The criteria is not found. Please try again.")
+    
+def searchMobileNo(file, Key_Mobile_No):
+    with open("records.pim", "r") as file:
+        lines = file.readlines()
+    #search the mobile no.
+        if Key_Mobile_No in lines:
+            #print out the content
+            print("the criteria is found in this file.") 
+            key = open(file, 'r')
+            print(key.read())
+        else:
+            print("The criteria is not found. Please try again.")
 
 def search():
     #search for PIRs based on criteria
@@ -76,21 +125,34 @@ def search():
     print("3. Name\n")
     print("4. Adddress\n")
     print("5. Mobile Number\n")
+    print("6. Deadline\n")
+    print("7. Starting time\n")
+    print("8. Alarm\n")
     command = input("Please enter 1, 2, 3, 4, 5 to choose the criteria of what you want to search.\n")
     # string command
     command = int(input("Please enter 1, 2, 3, 4, 5 to choose what you want to do.\n"))
     while True:
         if command == 1:
-            pass
+            Key_Note = input("Please enter the note: \n") # string
+            searchNote(Key_Note)
         elif command == 2:
-            pass
+            Key_Description = input("Please enter the description: \n") # string
+            searchDescription(Key_Description)
         elif command == 3:
-            pass
+            Key_Name = input("Please enter the name: \n") # string
+            searchName(Key_Name)
         elif command == 4:
-            pass
+            Key_Address = input("Please enter the address: \n") # string
+            searchAddress(Key_Address)
         elif command == 5:
-            Mobile_No = input("Please enter your mobile number: \n") # string
-            searchMobileNo(Mobile_No)
+            Key_Mobile_No = input("Please enter the mobile number: \n") # string
+            searchMobileNo(Key_Mobile_No)
+        elif command == 6:
+            pass
+        elif command == 7:
+            pass
+        elif command == 8:
+            pass
         else:
             command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
 
