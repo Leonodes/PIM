@@ -2,11 +2,7 @@ from model.PIRNote import Note
 from model.PIRTask import Task
 from model.PIREvent import Event
 from model.PIRContact import Contact
-import View.NoteView
-import View.TaskView 
-import View.EventView
-import View.ContactView
-from controller.PIRController import PIRController
+from View.PIRView import NoteDetail, TaskDetail, EventDetail, ContactDetail
 import re
 from datetime import datetime
 from controller.insert_delete_replace import insert, delete, replace
@@ -154,10 +150,8 @@ def deletePIR():
     # delete() in controller/insert_delete_replace.py
     pass
 
-def displayPIR():
-    
+def displayPIR(type):
     pass
-
 
 def checkFormat(date):
     if date is None:

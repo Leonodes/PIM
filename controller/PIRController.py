@@ -1,11 +1,9 @@
-from PIRNote import Note
-from PIRContact import Contact
-from PIRTask import Task
-from PIREvent import Event
-import NoteView
-import TaskView
-import EventView
-import ContactView
+from model.PIRNote import Note
+from model.PIRTask import Task
+from model.PIREvent import Event
+from model.PIRContact import Contact
+from View.PIRView import NoteDetail, TaskDetail, EventDetail, ContactDetail
+
 
 class PIRController:
     def __init__(self, model, view):
