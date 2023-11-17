@@ -58,7 +58,6 @@ def create():
     else:
         command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
 
-
 def searchNote(file, Key_Note):
     with open("records.pim", "r") as file:
         lines = file.readlines()
@@ -73,7 +72,7 @@ def searchNote(file, Key_Note):
 def searchDescription(file, Key_Description):
     with open("records.pim", "r") as file:
         lines = file.readlines()
-    #search the mobile no.
+    #search the description
         if Key_Description in lines:
             print("the criteria is found in this file.") 
             key = open(file, 'r')
@@ -84,7 +83,7 @@ def searchDescription(file, Key_Description):
 def searchName(file, Key_Name):
     with open("records.pim", "r") as file:
         lines = file.readlines()
-    #search the mobile no.
+    #search the name
         if Key_Name in lines:
             #print out the content
             print("the criteria is found in this file.") 
@@ -96,7 +95,7 @@ def searchName(file, Key_Name):
 def searchAddress(file, Key_Address):
     with open("records.pim", "r") as file:
         lines = file.readlines()
-    #search the mobile no.
+    #search the address
         if Key_Address in lines:
             #print out the content
             print("the criteria is found in this file.") 
@@ -119,18 +118,17 @@ def searchMobileNo(file, Key_Mobile_No):
 
 def search():
     #search for PIRs based on criteria
-    print("Criteria:\n")
-    print("1. Note\n")
-    print("2. Description\n")
-    print("3. Name\n")
-    print("4. Adddress\n")
+    print("Criteria:")
+    print("1. Note")
+    print("2. Description")
+    print("3. Name")
+    print("4. Address")
     print("5. Mobile Number\n")
     print("6. Deadline\n")
     print("7. Starting time\n")
     print("8. Alarm\n")
     command = input("Please enter 1, 2, 3, 4, 5 to choose the criteria of what you want to search.\n")
     # string command
-    command = int(input("Please enter 1, 2, 3, 4, 5 to choose what you want to do.\n"))
     while True:
         if command == 1:
             Key_Note = input("Please enter the note: \n") # string
@@ -145,16 +143,16 @@ def search():
             Key_Address = input("Please enter the address: \n") # string
             searchAddress(Key_Address)
         elif command == 5:
-            Key_Mobile_No = input("Please enter the mobile number: \n") # string
-            searchMobileNo(Key_Mobile_No)
-        elif command == 6:
-            pass
-        elif command == 7:
-            pass
-        elif command == 8:
             pass
         else:
             command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
+
+def modify():
+
+def delete():
+
+def display():
+
 
 
 def checkFormat(date):
