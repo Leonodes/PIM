@@ -9,7 +9,7 @@ import View.ContactView
 from controller.PIRController import PIRController
 import re
 from datetime import datetime
-from controller.insert_test import insert
+from controller.insert_delete import insert, delete
 
 def createNote(note_to_insert):
     
