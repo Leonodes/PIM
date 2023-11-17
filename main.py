@@ -118,7 +118,7 @@ def matches_time_criteria(time_criteria):
         for line in file:
             parts = line.split(",")
             for part in parts:
-                if checkDateFormat(part.strip()):
+                if checkFormat(part.strip()):
                     time = datetime.strptime(time_criteria[0].strip(),"%m/%d/%y %H:%M")
                     value = datetime.strptime(part.strip(),"%Y/%m/%d %H:%M")
                     condition = time_criteria[1]
@@ -221,10 +221,10 @@ def matches_logical_criteria(logical_criteria):
             if matches_logical_criteria(get_PIR(), criterion[1:]) is True:
                 return False
         elif criterion[0] == "&&":
-            if not all(matches_logical_criteria(pir, crit) for crit in criterion[1:]):
+            if not all(matches_logical_criteria(get_PIR(), crit) for crit in criterion[1:]):
                 return False
         elif criterion[0] == "||":
-            if not any(matches_logical_criteria(pir, crit) for crit in criterion[1:]):
+            if not any(matches_logical_criteria(get_PIR(), crit) for crit in criterion[1:]):
                 return False
 
     return True
