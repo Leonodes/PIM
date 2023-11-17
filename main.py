@@ -9,7 +9,7 @@ import View.ContactView
 from controller.PIRController import PIRController
 import re
 from datetime import datetime
-from controller.insert_delete import insert, delete
+from controller.insert_delete_replace import insert, delete, replace
 
 def createNote(note_to_insert):
     
@@ -28,13 +28,13 @@ def createNote(note_to_insert):
     if line_num == None:
         return
 
-    # insert note in the line before "Task"
-    with open("records.pim", "w") as file:
-        for i, line in enumerate(lines):
+    # # insert note in the line before "Task"
+    # with open("records.pim", "w") as file:
+    #     for i, line in enumerate(lines):
             
-            if i == line_num - 1:
-                file.write(note_to_insert + "\n")
-            file.write(line)
+    #         if i == line_num - 1:
+    #             file.write(note_to_insert + "\n")
+    #         file.write(line)
 
 def create():
     # create quick notes, task, contact, event
@@ -147,11 +147,15 @@ def search():
         else:
             command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
 
-def modify():
+def modifyPIR():
+    # replace() in controller/insert_delete_replace.py
+    pass 
+def deletePIR():
+    # delete() in controller/insert_delete_replace.py
     pass
-def delete():
-    pass
-def display():
+
+def displayPIR():
+    
     pass
 
 
