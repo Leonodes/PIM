@@ -1,11 +1,3 @@
-# class deadline:
-#     def __init__(self, d_date, d_time):
-#         self.d_date = d_date
-#         self.d_time = d_time
-        
-#     def display(self):
-#         print(self.d_date, " ", self.d_time)
-
 class Task:
     def __init__(self, description, deadline):
         self.description = description
