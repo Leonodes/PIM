@@ -29,8 +29,13 @@ def copy_csv_to_pim(pim_file, csv_file):
     with open(pim_file, 'w') as file:
         file.write('\n'.join(lines))
 
-
-
+def insert(new_line,insert_index):
+    pim_file_path = 'records.pim'
+    csv_file_path = 'output.csv'
+    copy_pim_to_csv(pim_file_path,csv_file_path)
+    insert_line(csv_file_path,new_line,insert_index)
+    copy_csv_to_pim(pim_file_path,csv_file_path)
+    return
 
 
 
