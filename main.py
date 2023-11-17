@@ -1,15 +1,7 @@
-from PIRNote import Note
-from PIRTask import Task
-from PIREvent import Event
-from PIRContact import Contact
-import NoteView
-import TaskView 
-import EventView
-import ContactView
-from PIRController import PIRController
 import re
 from datetime import datetime
-from insert_test import insert
+from controller.insert_test import insert
+import sys
 
 def createNote(note_to_insert):
     
@@ -38,13 +30,13 @@ def createNote(note_to_insert):
 
 def create():
     # create quick notes, task, contact, event
-    print("1. Create Quick Notes\n")
-    print("2. Create tasks.\n")
-    print("3. Create contacts.\n")
-    print("4. Create events.\n")
+    print("1. Create Quick Notes")
+    print("2. Create tasks.")
+    print("3. Create contacts.")
+    print("4. Create events.")
     command = int(input("Please enter 1, 2, 3, 4 to choose what you want to create.\n"))
     if command == 1:
-        notes = input("Please enter your note: \n") # string
+        notes = input("Please enter your note: ") # string
         createNote(notes) #save notes
         print("")
     elif command == 2:
@@ -58,48 +50,6 @@ def create():
     else:
         command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
 
-# def searchMobileNo(Mobile_No):
-#     with open("records.pim", "r") as file:
-#         lines = file.readlines()
-#     #search the mobile no.
-#     for i, line in enumerate(lines):
-#         if Mobile_No in line:
-#             line_num = i
-#             print(i)
-
-
-def search():
-    #search for PIRs based on criteria
-    print("Criteria:")
-    print("1. Note")
-    print("2. Description")
-    print("3. Name")
-    print("4. Address")
-    print("5. Mobile Number\n")
-    command = input("Please enter 1, 2, 3, 4, 5 to choose the criteria of what you want to search.")
-    # string command
-    command = int(input("Please enter 1, 2, 3, 4, 5 to choose what you want to do."))
-    while True:
-        if command == 1:
-            pass
-        elif command == 2:
-            pass
-        elif command == 3:
-            pass
-        elif command == 4:
-            pass
-        elif command == 5:
-            Mobile_No = input("Please enter your mobile number: ") # string
-            searchMobileNo(Mobile_No)
-        else:
-            command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
-
-def modify():
-
-def delete():
-
-def display():
-
 
 
 def checkFormat(date):
@@ -108,6 +58,15 @@ def checkFormat(date):
     date_format = "%m/%d/%y %H:%M"
     if len(date.strip()) != len(date_format):
         return False
+    try:
+        datetime.strptime(date.strip(), date_format)
+    except ValueError:
+        return False
+    return True
+def checkDateFormat(date):
+    if date is None:
+        return False
+    date_format = "%Y/%m/%d %H:%M"
     try:
         datetime.strptime(date.strip(), date_format)
     except ValueError:
@@ -137,33 +96,132 @@ def findIndex(Type):
         if word_to_find in line:
             index = i
             return index
+        
+def matches_text_criteria(text_criteria):
+    found_lines = []
+    with open("records.pim", "r") as file:
+        for line in file:
+            if text_criteria in line:
+                found_lines.append(line.strip())
+    return found_lines
 
+def get_text_criteria():
+    text_criteria = input("Enter text: ")
+    return text_criteria
+
+def matches_time_criteria(time_criteria):
+    found_lines = []
+    with open("records.pim", "r") as file:
+        for line in file:
+            parts = line.split(",")
+            for part in parts:
+                if checkDateFormat(part.strip()):
+                    time = datetime.strptime(time_criteria[0].strip(),"%m/%d/%y %H:%M")
+                    value = datetime.strptime(part.strip(),"%Y/%m/%d %H:%M")
+                    condition = time_criteria[1]
+                    if condition == "<" and value < time:
+                        found_lines.append(line.strip())
+                    elif condition == ">" and value > time:
+                        found_lines.append(line.strip())
+                    elif condition == "=" and value == time:
+                        found_lines.append(line.strip())
+                    else:
+                        pass
+        return found_lines
+
+def get_time_criteria():
+    time = input("Enter time (MM/dd/yy hh:mm): ")
+    while not checkFormat(time):
+        print("Enter the right format date for task item:")
+        time = input()
+    condition = input("Enter condition: ")
+    return [time,condition]
+
+
+def matches_logical_criteria(pir, logical_criteria):
+    for criterion in logical_criteria:
+        if criterion[0] == "!":
+            if matches_logical_criteria(pir, criterion[1:]) is True:
+                return False
+        elif criterion[0] == "&&":
+            if not all(matches_logical_criteria(pir, crit) for crit in criterion[1:]):
+                return False
+        elif criterion[0] == "||":
+            if not any(matches_logical_criteria(pir, crit) for crit in criterion[1:]):
+                return False
+
+    return True
 
 #main
 def main():
     while True:
-        print("Hi! Here is Personal Information Manager. Please choose what you want to do.\n")
-        print("1. Create Personal Information Records.\n")
-        print("2. Search Personal Information Records.\n")
-        print("3. Modify Personal Information Records.\n")
-        print("4. Delete Personal Information Records.\n")
-        print("5. Display Personal Information Records.\n")
+        print("Hi! Here is Personal Information Manager. Please choose what you want to do.")
+        print("1. Create Personal Information Records.")
+        print("2. Search Personal Information Records.")
+        print("3. Modify Personal Information Records.")
+        print("4. Delete Personal Information Records.")
+        print("5. Display Personal Information Records.")
+        print("6. Exit the system")
         # string command
-        command = int(input("Please enter 1, 2, 3, 4, 5 to choose what you want to do.\n"))
+        command = int(input("Please enter 1, 2, 3, 4, 5 to choose what you want to do."))
         if command == 1:
             print("create")
             create() # create PIR
         elif command == 2:
             print("search")
-            search() # search PIR
+            print("1.text criteria")
+            print("2.time criteria")
+            print("3.logical criteria")
+            criteria = int(input("Please enter search criteria. 1,2,3"))
+            if criteria == 1:
+                print(matches_text_criteria(get_text_criteria()))
+            if criteria == 2:
+                print(matches_time_criteria(get_time_criteria()))
         elif command == 3:
             pass
         elif command == 4:
             pass
         elif command == 5:
             pass
+        elif command == 6:
+            sys.exit()
         else:
-            command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
+            command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5, 6 to choose again."))
 
 
 main()
+
+
+
+def get_PIR():
+    lines = []
+    with open("records.pim", "r") as file:
+        for line in file:
+            lines.append(line.strip())
+    return lines
+
+
+def get_logical_criteria():
+    logical_criteria = []
+    while True:
+        operator = input("Enter operator (!, ||, or &&), or press Enter to finish: ")
+        if not operator:
+            break
+        condition = input("Enter condition (field, condition, value): ")
+        condition = condition.split(",")
+        logical_criteria.append((operator, condition))
+    return logical_criteria
+
+def matches_logical_criteria(logical_criteria):
+    for criterion in logical_criteria:
+        if criterion[0] == "!":
+            if matches_logical_criteria(get_PIR(), criterion[1:]) is True:
+                return False
+        elif criterion[0] == "&&":
+            if not all(matches_logical_criteria(pir, crit) for crit in criterion[1:]):
+                return False
+        elif criterion[0] == "||":
+            if not any(matches_logical_criteria(pir, crit) for crit in criterion[1:]):
+                return False
+
+    return True
