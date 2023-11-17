@@ -1,15 +1,15 @@
-from PIRNote import Note
-from PIRTask import Task
-from PIREvent import Event
-from PIRContact import Contact
-import NoteView
-import TaskView 
-import EventView
-import ContactView
-from PIRController import PIRController
+from model.PIRNote import Note
+from model.PIRTask import Task
+from model.PIREvent import Event
+from model.PIRContact import Contact
+import View.NoteView
+import View.TaskView 
+import View.EventView
+import View.ContactView
+from controller.PIRController import PIRController
 import re
 from datetime import datetime
-from insert_test import insert
+from controller.insert_test import insert
 
 def createNote(note_to_insert):
     
@@ -95,11 +95,11 @@ def search():
             command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
 
 def modify():
-
+    pass
 def delete():
-
+    pass
 def display():
-
+    pass
 
 
 def checkFormat(date):
@@ -113,6 +113,7 @@ def checkFormat(date):
     except ValueError:
         return False
     return True
+    
 def setPIMTask():
     get_str = input("Enter date for task item (MM/dd/yy hh:mm): ")
     while not checkFormat(get_str):
@@ -121,6 +122,7 @@ def setPIMTask():
     date = get_str
     taskItem = input("Enter task text:")
     return date, taskItem
+
 def findIndex(Type):
     with open("records.pim", "r") as file:
         lines = file.readlines()
