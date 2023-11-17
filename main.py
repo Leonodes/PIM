@@ -118,7 +118,7 @@ def matches_time_criteria(time_criteria):
         for line in file:
             parts = line.split(",")
             for part in parts:
-                if checkFormat(part.strip()):
+                if checkDateFormat(part.strip()):
                     time = datetime.strptime(time_criteria[0].strip(),"%m/%d/%y %H:%M")
                     value = datetime.strptime(part.strip(),"%Y/%m/%d %H:%M")
                     condition = time_criteria[1]
@@ -196,35 +196,35 @@ main()
 
 
 
-# def get_PIR():
-#     lines = []
-#     with open("records.pim", "r") as file:
-#         for line in file:
-#             lines.append(line.strip())
-#     return lines
+def get_PIR():
+    lines = []
+    with open("records.pim", "r") as file:
+        for line in file:
+            lines.append(line.strip())
+    return lines
 
 
-# def get_logical_criteria():
-#     logical_criteria = []
-#     while True:
-#         operator = input("Enter operator (!, ||, or &&), or press Enter to finish: ")
-#         if not operator:
-#             break
-#         condition = input("Enter condition (field, condition, value): ")
-#         condition = condition.split(",")
-#         logical_criteria.append((operator, condition))
-#     return logical_criteria
+def get_logical_criteria():
+    logical_criteria = []
+    while True:
+        operator = input("Enter operator (!, ||, or &&), or press Enter to finish: ")
+        if not operator:
+            break
+        condition = input("Enter condition (field, condition, value): ")
+        condition = condition.split(",")
+        logical_criteria.append((operator, condition))
+    return logical_criteria
 
-# def matches_logical_criteria(logical_criteria):
-#     for criterion in logical_criteria:
-#         if criterion[0] == "!":
-#             if matches_logical_criteria(get_PIR(), criterion[1:]) is True:
-#                 return False
-#         elif criterion[0] == "&&":
-#             if not all(matches_logical_criteria(pir, crit) for crit in criterion[1:]):
-#                 return False
-#         elif criterion[0] == "||":
-#             if not any(matches_logical_criteria(pir, crit) for crit in criterion[1:]):
-#                 return False
+def matches_logical_criteria(logical_criteria):
+    for criterion in logical_criteria:
+        if criterion[0] == "!":
+            if matches_logical_criteria(get_PIR(), criterion[1:]) is True:
+                return False
+        elif criterion[0] == "&&":
+            if not all(matches_logical_criteria(pir, crit) for crit in criterion[1:]):
+                return False
+        elif criterion[0] == "||":
+            if not any(matches_logical_criteria(pir, crit) for crit in criterion[1:]):
+                return False
 
-#     return True
+    return True
