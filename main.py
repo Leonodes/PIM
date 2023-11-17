@@ -70,15 +70,15 @@ def create():
 
 def search():
     #search for PIRs based on criteria
-    print("Criteria:\n")
-    print("1. Note\n")
-    print("2. Description\n")
-    print("3. Name\n")
-    print("4. Adddress\n")
+    print("Criteria:")
+    print("1. Note")
+    print("2. Description")
+    print("3. Name")
+    print("4. Address")
     print("5. Mobile Number\n")
-    command = input("Please enter 1, 2, 3, 4, 5 to choose the criteria of what you want to search.\n")
+    command = input("Please enter 1, 2, 3, 4, 5 to choose the criteria of what you want to search.")
     # string command
-    command = int(input("Please enter 1, 2, 3, 4, 5 to choose what you want to do.\n"))
+    command = int(input("Please enter 1, 2, 3, 4, 5 to choose what you want to do."))
     while True:
         if command == 1:
             pass
@@ -89,10 +89,17 @@ def search():
         elif command == 4:
             pass
         elif command == 5:
-            Mobile_No = input("Please enter your mobile number: \n") # string
+            Mobile_No = input("Please enter your mobile number: ") # string
             searchMobileNo(Mobile_No)
         else:
             command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
+
+def modify():
+
+def delete():
+
+def display():
+
 
 
 def checkFormat(date):
