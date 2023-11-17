@@ -7,6 +7,9 @@ import TaskView
 import EventView
 import ContactView
 from PIRController import PIRController
+import re
+from datetime import datetime
+from insert_test import insert
 
 def createNote(note_to_insert):
     
@@ -41,33 +44,70 @@ def create():
     print("3. Create contacts.\n")
     print("4. Create events.\n")
     command = int(input("Please enter 1, 2, 3, 4 to choose what you want to create.\n"))
-    while True:
-        if command == 1:
-            notes = input("Please enter your note: \n") # string
-            createNote(notes) #save notes
-            print("")
-        elif command == 2:
-            pass
-        elif command == 3:
-            pass
-        elif command == 4:
-            pass
-        else:
-            command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
+    if command == 1:
+        notes = input("Please enter your note: \n") # string
+        createNote(notes) #save notes
+        print("")
+    elif command == 2:
+        date,taskItem = setPIMTask()
+        insert([taskItem,date],findIndex("task"))
+        pass
+    elif command == 3:
+        pass
+    elif command == 4:
+        pass
+    else:
+        command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
 
+
+def checkFormat(date):
+    if date is None:
+        return False
+    date_format = "%m/%d/%y %H:%M"
+    if len(date.strip()) != len(date_format):
+        return False
+    try:
+        datetime.strptime(date.strip(), date_format)
+    except ValueError:
+        return False
+    return True
+def setPIMTask():
+    get_str = input("Enter date for task item (MM/dd/yy hh:mm): ")
+    while not checkFormat(get_str):
+        print("Enter the right format date for task item:")
+        get_str = input()
+    date = get_str
+    taskItem = input("Enter task text:")
+    return date, taskItem
+def findIndex(Type):
+    with open("records.pim", "r") as file:
+        lines = file.readlines()
+    if Type == "note":
+        word_to_find = "Task"
+    elif Type == "task":
+        word_to_find = "Contact"
+    elif Type == "contact":
+        word_to_find = "Event"
+    else:
+        word_to_find = "End"
+    # error handling
+    for i, line in enumerate(lines):
+        if word_to_find in line:
+            index = i
+            return index
 
 
 #main
 def main():
-    print("Hi! Here is Personal Information Manager. Please choose what you want to do.\n")
-    print("1. Create Personal Information Records.\n")
-    print("2. Search Personal Information Records.\n")
-    print("3. Modify Personal Information Records.\n")
-    print("4. Delete Personal Information Records.\n")
-    print("5. Display Personal Information Records.\n")
-    # string command
-    command = int(input("Please enter 1, 2, 3, 4, 5 to choose what you want to do.\n"))
     while True:
+        print("Hi! Here is Personal Information Manager. Please choose what you want to do.\n")
+        print("1. Create Personal Information Records.\n")
+        print("2. Search Personal Information Records.\n")
+        print("3. Modify Personal Information Records.\n")
+        print("4. Delete Personal Information Records.\n")
+        print("5. Display Personal Information Records.\n")
+        # string command
+        command = int(input("Please enter 1, 2, 3, 4, 5 to choose what you want to do.\n"))
         if command == 1:
             print("create")
             create() # create PIR
