@@ -3,18 +3,18 @@ class Event:
         self.description = description
         self.start_time = start_time
         self.alarm = alarm
-    def getDescription(self):
-        return self.description
-    def setDescription(self, description):
-        self.description = description
-    def getStartTime(self):
-        return self.start_time
-    def setStartTime(self, start_time):
-        self.start_time = start_time
-    def getAlarm(self):
-        return self.alarm
-    def setAlarm(self, alarm):
-        self.alarm = alarm
+    # def getDescription(self):
+    #     return self.description
+    # def setDescription(self, description):
+    #     self.description = description
+    # def getStartTime(self):
+    #     return self.start_time
+    # def setStartTime(self, start_time):
+    #     self.start_time = start_time
+    # def getAlarm(self):
+    #     return self.alarm
+    # def setAlarm(self, alarm):
+    #     self.alarm = alarm
     # def display(self):
     #     print(self.description)
     #     print(self.start_time)
