@@ -2,7 +2,7 @@
 2. modifyPIR(replace function)
 3. deletePIR(delete function)
 4. OOP
-5. display()
+5. display note/task/event/contact()
 
 unit test
 ------

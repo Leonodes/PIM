@@ -3,18 +3,18 @@ class Contact:
         self.name = name
         self.address = address
         self.mobile_num = mobile_num
-    def getName(self):
-        return self.name
-    def setName(self, name):
-        self.name = name
-    def getAddress(self):
-        return self.address
-    def setAddress(self, address):
-        self.address = address
-    def getMobileNum(self):
-        return self.mobile_num
-    def setMobileNum(self, mobile_num):
-        self.mobile_num = mobile_num
+    # def getName(self):
+    #     return self.name
+    # def setName(self, name):
+    #     self.name = name
+    # def getAddress(self):
+    #     return self.address
+    # def setAddress(self, address):
+    #     self.address = address
+    # def getMobileNum(self):
+    #     return self.mobile_num
+    # def setMobileNum(self, mobile_num):
+    #     self.mobile_num = mobile_num
     # def display(self):
     #     print(self.name)
     #     print(self.address)
