@@ -3,16 +3,12 @@ from model.PIRTask import Task
 from model.PIREvent import Event
 from model.PIRContact import Contact
 from View.PIRView import NoteDetail, TaskDetail, EventDetail, ContactDetail
-import re
 from datetime import datetime
 from controller.insert_delete_replace import insert, delete, replace
 import re
-from datetime import datetime
-from controller.insert_delete_replace import insert
 import sys
 
 def createNote(note_to_insert):
-    
     with open("records.pim", "r") as file:
         lines = file.readlines()
     # find "task"
