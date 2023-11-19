@@ -32,7 +32,8 @@ def create():
 
 
 def displayPIR(type):
-    pass
+    with open("records.pim", "r") as file:
+        print(file.read())
 
 def checkFormat(date):
     if date is None:
