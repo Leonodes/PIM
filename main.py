@@ -31,8 +31,10 @@ def create():
         command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
 
 
-def displayPIR(type):
-    pass
+def displayPIR():
+    #print out the full PIR
+    with open("records.pim", "r") as file:
+        print(file.read())
 
 def checkFormat(date):
     if date is None:
@@ -179,7 +181,8 @@ def main():
         elif command == 4:
             pass
         elif command == 5:
-            pass
+            print("display")
+            displayPIR() # display PIR
         elif command == 6:
             sys.exit()
         else:
