@@ -32,9 +32,27 @@ def create():
 
 
 def displayPIR():
-    #print out the full PIR
-    with open("records.pim", "r") as file:
-        print(file.read())
+    print("1. Print Quick Notes")
+    print("2. Print tasks.")
+    print("3. Print contacts.")
+    print("4. Print events.")
+    print("5. Print all content.")
+    command = int(input("Please enter 1, 2, 3, 4, 5 to choose what you want to print.\n"))
+    if command == 1:
+        NoteDetail
+    elif command == 2:
+        TaskDetail
+    elif command == 3:
+        ContactDetail
+    elif command == 4:
+        EventDetail
+    elif command == 5:
+        #print out the full PIR
+        with open("records.pim", "r") as file:
+            print(file.read())
+    else:
+        command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
+    
 
 def checkFormat(date):
     if date is None:
