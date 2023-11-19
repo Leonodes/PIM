@@ -59,32 +59,32 @@
 
 
 
-def replace(file_path,search_text, replace_text):
-    with open(file_path,'r') as file:
+def replace(search_text, replace_text):
+    with open('records.pim','r') as file:
         data = file.read()
         data = data.replace(search_text, replace_text)
 
-    with open('replace_test.pim','w') as file:
+    with open('records.pim','w') as file:
         file.write(data)
 
-def insert(file_path, line_number, line_text):
+def insert(line_text, line_index):
     # Read the existing contents of the file
-    with open(file_path, 'r') as file:
+    with open('records.pim', 'r') as file:
         lines = file.readlines()
 
     # Insert the new line at the specified position
-    lines.insert(line_number - 1, line_text + '\n')
+    lines.insert(line_index - 1, line_text + '\n')
 
     # Write the modified contents back to the file
-    with open(file_path, 'w') as file:
+    with open('records.pim', 'w') as file:
         file.writelines(lines)
 
-def delete(file_path, line_number):
-    with open(file_path, 'r') as file:
+def delete(line_number):
+    with open('records.pim', 'r') as file:
         lines = file.readlines()
 
     if line_number > 0 and line_number <= len(lines):
         del lines[line_number - 1]
 
-    with open(file_path, 'w') as file:
+    with open('records', 'w') as file:
         file.writelines(lines)
