@@ -8,30 +8,6 @@ from controller.insert_delete_replace import insert, delete, replace
 import re
 import sys
 
-def createNote(note_to_insert):
-    with open("records.pim", "r") as file:
-        lines = file.readlines()
-    # find "task"
-    word_to_find = "Task"
-    # line_num = None
-    
-    for i, line in enumerate(lines):
-        if word_to_find in line:
-            line_num = i
-            print(i)
-            break 
-    print(line_num)
-    if line_num == None:
-        return
-
-    # # insert note in the line before "Task"
-    # with open("records.pim", "w") as file:
-    #     for i, line in enumerate(lines):
-            
-    #         if i == line_num - 1:
-    #             file.write(note_to_insert + "\n")
-    #         file.write(line)
-
 def create():
     # create quick notes, task, contact, event
     print("1. Create Quick Notes")
@@ -40,17 +16,17 @@ def create():
     print("4. Create events.")
     command = int(input("Please enter 1, 2, 3, 4 to choose what you want to create.\n"))
     if command == 1:
-        notes = input("Please enter your note: ") # string
-        createNote(notes) #save notes
-        print("")
+        # note = setPIMNote()
+        insert(setPIMNote(),findIndex("note"))
     elif command == 2:
         date,taskItem = setPIMTask()
         insert([taskItem,date],findIndex("task"))
-        pass
     elif command == 3:
-        pass
+        name, address, mobileNum = setPIMContact()
+        insert([name, address, mobileNum], findIndex("contact"))
     elif command == 4:
-        pass
+        description, start_time, alarm = setPIMEvent()
+        insert([description, start_time, alarm], findIndex("event"))
     else:
         command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
 
@@ -69,7 +45,11 @@ def checkFormat(date):
     except ValueError:
         return False
     return True
-    
+
+def setPIMNote():
+    get_note_content = input("Enter your note:")
+    return get_note_content
+
 def setPIMTask():
     get_str = input("Enter date for task item (MM/dd/yy hh:mm): ")
     while not checkFormat(get_str):
@@ -79,6 +59,24 @@ def setPIMTask():
     taskItem = input("Enter task text:")
     return date, taskItem
 
+def setPIMContact():
+    get_name = input("Enter a name for contact item:")
+    get_addr = input("Enter an address for contact item: ")
+    get_mobileNum = int(input("Enter a number for contact item"))
+    return get_name, get_addr, get_mobileNum
+
+def setPIMEvent():
+    get_description = input("Enter a description for this event: ")
+    get_start_time = input("Enter start time for event item (MM/dd/yy hh:mm): ")
+    while not checkFormat(get_start_time):
+        print("Enter the right format date for task item:")
+        get_start_time = input()
+    get_alarm = input("Enter a time to alarm you (MM/dd/yy hh:mm):")
+    while not checkFormat(get_alarm):
+        print("Enter the right format date for task item:")
+        get_alarm = input()
+    return get_description, get_start_time, get_alarm
+    
 def findIndex(Type):
     with open("records.pim", "r") as file:
         lines = file.readlines()
