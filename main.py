@@ -39,7 +39,7 @@ def displayPIR():
     print("5. Print all content.")
     command = int(input("Please enter 1, 2, 3, 4, 5 to choose what you want to print.\n"))
     if command == 1:
-        NoteDetail
+        print(NoteDetail)
     elif command == 2:
         TaskDetail
     elif command == 3:
