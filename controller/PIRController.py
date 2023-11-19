@@ -6,6 +6,8 @@ from model.PIRContact import Contact
 from checkDateFormat import checkDate
 from insert_delete_replace import insert, delete, replace
 from findIndex import findIndex
+from View.PIRView import PIRView
+
 
 class PIRController:
     def __init__(self):
@@ -39,6 +41,64 @@ class PIRController:
             insert(event, findIndex("event"))
         else:
             command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
+
+    def displayAll():
+        view = PIRView()
+        noteStart = 1
+        noteEnd = findIndex("note") #taskStart = noteEnd+2
+        taskEnd = findIndex("task") #contactStart = taskEnd+2
+        contactEnd = findIndex("contact") #eventStart = contactEnd+2
+        eventEnd = findIndex("event")
+        
+        with open("records.pim", "r") as file:
+            lines = file.readlines()
+        for i, line in enumerate(lines):
+            if i >= noteStart & i <= noteEnd:
+                view.NoteDetail(line) # line is content
+            if i >= noteEnd+2 & i <= taskEnd:
+                taskDescr, deadline = line.strip().split(",")
+                view.TaskDetail(taskDescr, deadline)
+            if i >= taskEnd+2 & i <= contactEnd:
+                name, address, mobileNum = line.strip().split(",")
+                view.ContactDetail(name, address, mobileNum)
+            if i >= contactEnd+2 & i <= eventEnd:
+                eventDescr, startTime, alarm = line.strip().split(",")
+                view.ContactDetail(eventDescr, startTime, alarm)
+    
+    def displayNote(index):
+        noteView = PIRView()
+        with open("records.pim", "r") as file:
+            lines = file.readlines()
+        for i, line in enumerate(lines):
+            if i == index:
+                noteView.NoteDetail(line) # line is content
+
+    def displayTask(index):
+        taskView = PIRView()
+        with open("records.pim", "r") as file:
+            lines = file.readlines()
+        for i, line in enumerate(lines):
+            if i == index:
+                taskDescr, deadline = line.strip().split(",")
+                taskView.TaskDetail(taskDescr, deadline)
+    
+    def displayContact(index):
+        contactView = PIRView()
+        with open("records.pim", "r") as file:
+            lines = file.readlines()
+        for i, line in enumerate(lines):
+            if i == index:
+                name, address, mobileNum = line.strip().split(",")
+                contactView.ContactDetail(name, address, mobileNum)
+    
+    def displayEvent(index):
+        eventView = PIRView()
+        with open("records.pim", "r") as file:
+            lines = file.readlines()
+        for i, line in enumerate(lines):
+            if i == index:
+                eventDescr, startTime, alarm = line.strip().split(",")
+                eventView.ContactDetail(eventDescr, startTime, alarm)
 
     # get note content
     @staticmethod

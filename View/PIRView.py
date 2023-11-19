@@ -1,15 +1,15 @@
-from model.PIRContact import Contact
-from model.PIREvent import Event
-from model.PIRNote import Note
-from model.PIRTask import Task
+# from model.PIRContact import Contact
+# from model.PIREvent import Event
+# from model.PIRNote import Note
+# from model.PIRTask import Task
 from controller.findIndex import findIndex
 
 class PIRView:
-    def __init__(self):
-        self.notes = Note
-        self.tasks = Task
-        self.events = Event
-        self.contacts = Contact
+    # def __init__(self):
+    #     self.notes = Note
+    #     self.tasks = Task
+    #     self.events = Event
+    #     self.contacts = Contact
 
     def displayAll(self):
         print("----------All Personal Information Records----------")
