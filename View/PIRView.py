@@ -1,20 +1,25 @@
-def NoteDetail(noteContent):
-    print("Note: ")
-    print("Content: "+ noteContent)
+class PIRView:
+    @staticmethod
+    def NoteDetail(noteContent):
+        print("Note: ")
+        print("Content: "+ noteContent)
+    
+    @staticmethod
+    def TaskDetail(taskDesc, taskDeadline):
+        print("Task: ")
+        print("Description: " + taskDesc)
+        print("Deadline: " + taskDeadline)
 
-def TaskDetail(taskDesc, taskDeadline):
-    print("Task: ")
-    print("Description: " + taskDesc)
-    print("Deadline: " + taskDeadline)
+    @staticmethod
+    def EventDetail(eventDesc, eventStart, eventAlarm):
+        print("Event:")
+        print("Description: " + eventDesc)
+        print("Start time: " + eventStart)
+        print("Alarm: " + eventAlarm)
 
-def EventDetail(eventDesc, eventStart, eventAlarm):
-    print("Event:")
-    print("Description: " + eventDesc)
-    print("Start time: " + eventStart)
-    print("Alarm: " + eventAlarm)
-
-def ContactDetail(contactName,contactAddr, contactNo):
-    print("Contact: ")
-    print("Name: " + contactName)
-    print("Address: " + contactAddr)
-    print("Mobile Number" + contactNo)
+    @staticmethod
+    def ContactDetail(contactName,contactAddr, contactNo):
+        print("Contact: ")
+        print("Name: " + contactName)
+        print("Address: " + contactAddr)
+        print("Mobile Number" + contactNo)
