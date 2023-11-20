@@ -1,3 +1,5 @@
+from View.InputView import Command
+
 class Contact:
     def __init__(self, name, address, mobile_num):
         self.name = name
@@ -23,3 +25,15 @@ class Contact:
     #     print("The name is {}".format(self.name))
     #     print("His/Her address is {}". format(self.address))
     #     print("His/Her mobile number is {}".format(self.mobile_num))
+    # get contact content
+
+    def setPIMContact():
+        enter = Command()
+        # get_name = input("Enter a name for contact item:")
+        get_name = enter.createContactNameCommand()
+        # get_addr = input("Enter an address for contact item: ")
+        get_addr = enter.createContactAddrCommand()
+        # get_mobileNum = int(input("Enter a number for contact item"))
+        get_mobileNum = enter.createContactMobileNumCommand()
+
+        return get_name, get_addr, get_mobileNum
