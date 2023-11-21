@@ -31,28 +31,18 @@ def create():
         command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
 
 
-def displayPIR():
-    print("1. Print Quick Notes")
-    print("2. Print tasks.")
-    print("3. Print contacts.")
-    print("4. Print events.")
-    print("5. Print all content.")
-    command = int(input("Please enter 1, 2, 3, 4, 5 to choose what you want to print.\n"))
-    if command == 1:
-        print(NoteDetail)
-    elif command == 2:
-        TaskDetail
-    elif command == 3:
-        ContactDetail
-    elif command == 4:
-        EventDetail
-    elif command == 5:
-        #print out the full PIR
-        with open("records.pim", "r") as file:
-            print(file.read())
-    else:
-        command = int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again."))
-    
+def displayPIR(type):
+    pass
+
+def checkDateFormat(date):
+    if date is None:
+        return False
+    date_format = "%Y/%m/%d %H:%M"
+    try:
+        datetime.strptime(date.strip(), date_format)
+    except ValueError:
+        return False
+    return True
 
 def checkFormat(date):
     if date is None:
@@ -132,7 +122,7 @@ def matches_time_criteria(time_criteria):
         for line in file:
             parts = line.split(",")
             for part in parts:
-                if checkFormat(part.strip()):
+                if checkDateFormat(part.strip()):
                     time = datetime.strptime(time_criteria[0].strip(),"%m/%d/%y %H:%M")
                     value = datetime.strptime(part.strip(),"%Y/%m/%d %H:%M")
                     condition = time_criteria[1]
@@ -155,19 +145,76 @@ def get_time_criteria():
     return [time,condition]
 
 
-def matches_logical_criteria(pir, logical_criteria):
-    for criterion in logical_criteria:
-        if criterion[0] == "!":
-            if matches_logical_criteria(pir, criterion[1:]) is True:
-                return False
-        elif criterion[0] == "&&":
-            if not all(matches_logical_criteria(pir, crit) for crit in criterion[1:]):
-                return False
-        elif criterion[0] == "||":
-            if not any(matches_logical_criteria(pir, crit) for crit in criterion[1:]):
-                return False
+def get_logical_criteria():
+    logical_criteria = []
+    while True:
+        operator = input("Enter operator (!, ||, or &&), or press Enter to finish: ")
+        if not operator:
+            break
+        condition = input("Enter condition (time, condition, value) or (text, value): ")
+        condition = condition.split(",")
+        logical_criteria.append([operator, condition])
+    return logical_criteria
 
-    return True
+def remove_from_file(strings_to_remove):
+    with open("records.pim", 'r') as file:
+        for line in file:
+            if not any(string in line for string in strings_to_remove):
+                print(line.rstrip())  
+
+
+def get_logical_criteria():
+    logical_conditions = []
+    conditions = []
+    operator = input("Enter operator (!, ||, or &&) ")
+    while True:
+        if operator == "!":
+            condition = input("Enter condition (time, value, condition) or (text, value): ")
+            condition = condition.split(",")
+            logical_conditions.append(condition)
+            break
+        if operator == "||":         
+            condition = input("Enter condition (time, value, condition) or (text, value): , or press enter to finish. ")
+            if not condition:
+                break            
+            condition = condition.split(",")  
+            conditions.append(condition)
+            logical_conditions.append(conditions)
+        if operator == "&&":         
+            condition = input("Enter time condition (value MM/dd/yy hh:mm, condition)")
+            condition = condition.split(",")  
+            conditions.append(condition)
+            logical_conditions.append(conditions)
+            condition = input("Enter text condition (value)")
+            condition = condition.split(",")  
+            conditions.append(condition)
+            logical_conditions.append(conditions)
+            break
+    return [operator,logical_conditions]
+
+def matches_logical_criteria(logical_criteria):
+    operator = logical_criteria[0]
+    logical_conditions = logical_criteria[1][0]
+    if operator == "!":
+        if logical_conditions[0] == "text": 
+            remove_from_file(matches_text_criteria(logical_conditions[1]))
+        if logical_conditions[0] == "time":
+            remove_from_file(matches_time_criteria(logical_conditions[0], logical_conditions[1]))
+    if operator == "||": 
+        for logical_condition in logical_conditions: 
+            if logical_condition[0] == "text": 
+                print(matches_text_criteria(logical_condition[1]))
+            if logical_condition[0] == "time":
+                print(matches_time_criteria([logical_condition[1], logical_condition[2]]))
+    if operator == "&&":
+        list1 = matches_time_criteria(logical_conditions[0])
+        list2 = matches_text_criteria(logical_conditions[1][0])
+        set1 = set(list1)
+        set2 = set(list2)
+        common_elements = set1.intersection(set2)
+        common_elements_list = list(common_elements)
+        print(common_elements_list)
+        
 
 #main
 def main():
@@ -189,18 +236,19 @@ def main():
             print("1.text criteria")
             print("2.time criteria")
             print("3.logical criteria")
-            criteria = int(input("Please enter search criteria. 1,2,3"))
+            criteria = int(input("Please enter search criteria: 1,2,3."))
             if criteria == 1:
                 print(matches_text_criteria(get_text_criteria()))
             if criteria == 2:
                 print(matches_time_criteria(get_time_criteria()))
+            if criteria == 3:
+                print(matches_logical_criteria(get_logical_criteria()))          
         elif command == 3:
             pass
         elif command == 4:
             pass
         elif command == 5:
-            print("display")
-            displayPIR() # display PIR
+            pass
         elif command == 6:
             sys.exit()
         else:
@@ -210,36 +258,3 @@ def main():
 main()
 
 
-
-def get_PIR():
-    lines = []
-    with open("records.pim", "r") as file:
-        for line in file:
-            lines.append(line.strip())
-    return lines
-
-
-def get_logical_criteria():
-    logical_criteria = []
-    while True:
-        operator = input("Enter operator (!, ||, or &&), or press Enter to finish: ")
-        if not operator:
-            break
-        condition = input("Enter condition (field, condition, value): ")
-        condition = condition.split(",")
-        logical_criteria.append((operator, condition))
-    return logical_criteria
-
-def matches_logical_criteria(logical_criteria):
-    for criterion in logical_criteria:
-        if criterion[0] == "!":
-            if matches_logical_criteria(get_PIR(), criterion[1:]) is True:
-                return False
-        elif criterion[0] == "&&":
-            if not all(matches_logical_criteria(get_PIR(), crit) for crit in criterion[1:]):
-                return False
-        elif criterion[0] == "||":
-            if not any(matches_logical_criteria(get_PIR(), crit) for crit in criterion[1:]):
-                return False
-
-    return True
