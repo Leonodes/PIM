@@ -1,8 +1,77 @@
 import unittest
 from model.PIRContact import Contact
+from model.PIREvent import Event
 
 class PIMTest(unittest.TestCase):
-    # def setup(self):
+    #test for contact
+    def test_setContact(self):
+        contact = Contact("Max","PQ666","66666666")
+        Name = "Max"
+        Addr = "PQ666"
+        MobileNum = "66666666"
+        expected_result = 'Contact', Name, Addr, MobileNum
+        result = contact.setContact(Name, Addr, MobileNum)
+        self.assertEqual(expected_result, result)
+
+    def test_getContact(self):
+        contact = Contact("Max","PQ666","66666666")
+        Name = "Max"
+        Addr = "PQ666"
+        MobileNum = "66666666"
+        expected_result = 'Contact', Name, Addr, MobileNum
+        result = contact.getContact()
+        self.assertEqual(expected_result, result)
+
+    def test_ContactToString(self):
+        contact = Contact("Max","PQ666","66666666")
+        Type = "Contact"
+        Name = "Max"
+        Addr = "PQ666"
+        MobileNum = "66666666"
+        expected_result = Type + ":\nName: " + Name + "\nAddress:" + Addr + "\nMobile Number: " + MobileNum
+        result = contact.ContactToString()
+        self.assertEqual(expected_result, result)
+
+    def test_ContactToPIR(self):
+        contact = Contact("Max","PQ666","66666666")
+        Name = "Max"
+        Addr = "PQ666"
+        MobileNum = "66666666"
+        expected_result = Name + "," + Addr + "," + MobileNum
+        result = contact.ContactToPIR()
+        self.assertEqual(expected_result, result)
+    
+    def test_updateContact(self):
+        contact = Contact("Max","PQ666","66666666")
+        contact.Name = "Max"
+        contact.Addr = "PQ666"
+        contact.MobileNum = "66666666"
+        # expected_result = 'Contact', Name, Addr, MobileNum
+        contact.updateContact("Amy", "PQ999", "88888888")
+        self.assertEqual(contact.name, "Amy")
+        self.assertEqual(contact.address, "PQ999")
+        self.assertEqual(contact.mobile_num, "88888888")
+
+    #test for event
+    
+
+    
+
+
+    # def test_setPIMContact(self):
+    #     newName = 'Max'
+    #     newAddr = 'PQ666'
+    #     newMobileNum = '66666666'
+    #     contact = Contact()
+    #     expected_result = 'Contact', newName, newAddr, newMobileNum
+    #     self.assertEqual(expected_result, contact.setContact(newName, newAddr, newMobileNum))
+
+
+if __name__ == '__main__':
+    unittest.main()
+
+
+        # def setup(self):
     #     self.filename = 'record.pim'
     #     content = """------Text------
     #              Notes
@@ -111,21 +180,3 @@ class PIMTest(unittest.TestCase):
     #     # with open(self.filename, 'r') as file:
     #     #     expected_output = print(file.read())
     #     # self.assertEqual(expected_result, expected_output)
-    def test_setName(self):
-        contact = Contact("Max","PQ666","66666666")
-        newName = "Max"
-        expected_result = contact.setName(newName)
-        print("Actual Result:", expected_result)
-        print("Expected Result:", newName)
-        self.assertEqual(expected_result, newName)
-    # def test_setPIMContact(self):
-    #     newName = 'Max'
-    #     newAddr = 'PQ666'
-    #     newMobileNum = '66666666'
-    #     contact = Contact()
-    #     expected_result = 'Contact', newName, newAddr, newMobileNum
-    #     self.assertEqual(expected_result, contact.setContact(newName, newAddr, newMobileNum))
-
-
-if __name__ == '__main__':
-    unittest.main()
