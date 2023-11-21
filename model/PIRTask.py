@@ -1,5 +1,5 @@
 from View.InputView import Command
-from checkDateFormat import checkDate
+from controller.checkDateFormat import checkDate
 
 class Task:
     def __init__(self, description, deadline):
