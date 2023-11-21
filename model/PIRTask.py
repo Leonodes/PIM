@@ -23,20 +23,7 @@ class Task:
     # get task content
 
 
-    #create
-    def setPIMTask():
-        # get_date = input("Enter date and time for task item ( in format MM/dd/yy hh:mm): ")
-        enter = Command()
-        get_date = enter.getDateCommand()
-        while not checkDate(get_date):
-            # print("Enter the right format date for task item:")
-            # get_date = input()
-            get_date = enter.getDateCommandAgain()
-        date = get_date
-        # taskItem = input("Enter task text:")
-        taskItem = enter.createTaskTextCommand()
-        return date, taskItem
-    
+    #create  
     def setTask(self, newDesc, newDeadline):
         self.description = newDesc
         self.deadline = newDeadline

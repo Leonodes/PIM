@@ -13,13 +13,7 @@ class Note:
     # def detail_display(self):
     #     print("The content for this note is {}".format(self.content))
 
-    # create
-    # def setPIMNote():
-    #     # get_note_content = input("Enter your note:")
-    #     # return get_note_content
-    #     enter = Command()
-    #     return enter.createNoteCommand()
-    
+    # create    
     def setNote(self, newContent):
         self.content = newContent
         return self.PIRType, self.content

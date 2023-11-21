@@ -29,16 +29,6 @@ class Contact:
     # get contact content
 
     # create
-    # def setPIMContact():
-    #     enter = Command()
-    #     # get_name = input("Enter a name for contact item:")
-    #     get_name = enter.createContactNameCommand()
-    #     # get_addr = input("Enter an address for contact item: ")
-    #     get_addr = enter.createContactAddrCommand()
-    #     # get_mobileNum = int(input("Enter a number for contact item"))
-    #     get_mobileNum = enter.createContactMobileNumCommand()
-    #     return get_name, get_addr, get_mobileNum
-    
     def setContact(self, newName, newAddr, newMobileNum):
         self.name = newName
         self.address = newAddr
