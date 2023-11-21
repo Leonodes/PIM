@@ -14,11 +14,15 @@ class Note:
     #     print("The content for this note is {}".format(self.content))
 
     # create
-    def setPIMNote():
-        # get_note_content = input("Enter your note:")
-        # return get_note_content
-        enter = Command()
-        return enter.createNoteCommand()
+    # def setPIMNote():
+    #     # get_note_content = input("Enter your note:")
+    #     # return get_note_content
+    #     enter = Command()
+    #     return enter.createNoteCommand()
+    
+    def setNote(self, newContent):
+        self.content = newContent
+        return self.PIRType, self.content
     
     # read
     def getPIMNote(self):
@@ -28,6 +32,10 @@ class Note:
     def NoteToString(self):
         string = self.PIRType + ":\nContent: " + self.content
         return string
+    
+    # note to PIR record form
+    def NoteToPIR(self):
+        return self.content
 
     # update
     def updateNote(self, newContent):

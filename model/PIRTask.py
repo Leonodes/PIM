@@ -37,6 +37,11 @@ class Task:
         taskItem = enter.createTaskTextCommand()
         return date, taskItem
     
+    def setTask(self, newDesc, newDeadline):
+        self.description = newDesc
+        self.deadline = newDeadline
+        return self.PIRType, self.description, self.deadline
+    
     # read
     def getPIMTask(self):
         return  self.PIRType, self.description, self.deadline
@@ -45,6 +50,10 @@ class Task:
     def TaskToString(self):
         string = self.PIRType + ":\nDescription: " + self.description + "\nDeadline: " + self.deadline
         return string
+    
+    # task to PIR record form
+    def TaskToPIR(self):
+        return self.description + "," + self.deadline
     
     # update
     def updateTask(self, newDesc, newDeadline):
