@@ -28,22 +28,51 @@ class PIRController:
         # command = int(input("Please enter 1, 2, 3, 4 to choose what you want to create.\n"))
         command = enter.createCommand() # ask user to input
         # insert PIR into PIM file
-        if command == 1:
-            note_content = self.setPIMNote()
-            note = Note(note_content)
-            insert(note,findIndex("note"))
-        elif command == 2:
-            date,taskItem = self.setPIMTask()
-            task = Task(date, taskItem)
-            insert(task, findIndex("task"))
-        elif command == 3:
-            name, address, mobileNum = self.setPIMContact()
-            contact = Contact(name, address, mobileNum)
-            insert(contact, findIndex("contact"))
-        elif command == 4:
-            description, start_time, alarm = self.setPIMEvent()
-            event = Event(description, start_time, alarm)
-            insert(event, findIndex("event"))
+        if command == 1: # Note
+            get_content = enter.createNoteCommand()
+            note = Note()
+            note.setNote(get_content)
+            insert(note.NoteToPIR(),findIndex("note"))
+        elif command == 2: #Task
+            get_date = enter.getDateCommand()
+            while not checkDate(get_date):
+                # print("Enter the right format date for task item:")
+                # get_date = input()
+                get_date = enter.getDateCommandAgain()
+            date = get_date
+            # taskItem = input("Enter task text:")
+            taskItem = enter.createTaskTextCommand()
+            task = Task()
+            task.setTask(date, taskItem)
+            insert(task.TaskToPIR(), findIndex("task"))
+        elif command == 3: # Contact
+            # get_name = input("Enter a name for contact item:")
+            get_name = enter.createContactNameCommand()
+            # get_addr = input("Enter an address for contact item: ")
+            get_addr = enter.createContactAddrCommand()
+            # get_mobileNum = int(input("Enter a number for contact item"))
+            get_mobileNum = enter.createContactMobileNumCommand()
+            contact = Contact()
+            contact.setContact(get_name, get_addr,get_mobileNum)
+            insert(contact.ContactToPIR(), findIndex("contact"))
+        elif command == 4: # Event
+            # get_description = input("Enter a description for this event: ")
+            get_description = enter.createEventDescCommand()
+            # get_start_time = input("Enter start time for event item (MM/dd/yy hh:mm): ")
+            get_start_time = enter.getDateCommand()
+            while not checkDate(get_start_time):
+                # print("Enter the right format date for start time:")
+                # get_start_time = input()
+                get_start_time = enter.getDateCommandAgain()
+            # get_alarm = input("Enter a time to alarm you (MM/dd/yy hh:mm):")
+            get_alarm = enter.getDateCommand()
+            while not checkDate(get_alarm):
+                # print("Enter the right format date for alarm time:")
+                # get_alarm = input()
+                get_alarm = enter.getDateCommandAgain()
+            event = Event()
+            event.setEvent(get_description, get_start_time, get_alarm)
+            insert(event.EventToPIR(), findIndex("event"))
         else:
             command = enter.createCommandAgain() # ask user to input again
 
@@ -69,7 +98,7 @@ class PIRController:
     #     # taskItem = input("Enter task text:")
     #     taskItem = enter.createTaskTextCommand()
     #     return date, taskItem
-    
+        
     # # get contact content
     # @staticmethod
     # def setPIMContact():
