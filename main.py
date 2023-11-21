@@ -2,7 +2,7 @@ from model.PIRNote import Note
 from model.PIRTask import Task
 from model.PIREvent import Event
 from model.PIRContact import Contact
-# from View.PIRView import NoteDetail, TaskDetail, EventDetail, ContactDetail
+from View.PIRView import NoteDetail, TaskDetail, EventDetail, ContactDetail
 from datetime import datetime
 from controller.insert_delete_replace import insert, delete, replace
 import re
@@ -173,31 +173,24 @@ def get_logical_criteria():
             condition = condition.split(",")
             logical_conditions.append(condition)
             break
-        if operator == "||" or operator == "&&":         
+        if operator == "||":         
             condition = input("Enter condition (time, value, condition) or (text, value): , or press enter to finish. ")
             if not condition:
                 break            
             condition = condition.split(",")  
             conditions.append(condition)
             logical_conditions.append(conditions)
-        else:
-            print("invalid operator, please input again")
+        if operator == "&&":         
+            condition = input("Enter time condition (value MM/dd/yy hh:mm, condition)")
+            condition = condition.split(",")  
+            conditions.append(condition)
+            logical_conditions.append(conditions)
+            condition = input("Enter text condition (value)")
+            condition = condition.split(",")  
+            conditions.append(condition)
+            logical_conditions.append(conditions)
+            break
     return [operator,logical_conditions]
-
-def find_common_elements(list1, list2):
-    set1 = set()
-    common_elements = []
-
-    for sublist1 in list1:
-        for element in sublist1:
-            set1.add(hash(element))
-
-    for sublist2 in list2:
-        for element in sublist2:
-            if hash(element) in set1:
-                common_elements.append(element)
-
-    return common_elements
 
 def matches_logical_criteria(logical_criteria):
     operator = logical_criteria[0]
@@ -214,14 +207,13 @@ def matches_logical_criteria(logical_criteria):
             if logical_condition[0] == "time":
                 print(matches_time_criteria([logical_condition[1], logical_condition[2]]))
     if operator == "&&":
-        list1 = []
-        list2 = []
-        for logical_condition in logical_conditions: 
-            if logical_condition[0] == "text": 
-                list1.append(matches_text_criteria(logical_condition[1]))
-            if logical_condition[0] == "time":
-                list2.append(matches_time_criteria([logical_condition[1], logical_condition[2]]))
-        print(find_common_elements(list1,list2))
+        list1 = matches_time_criteria(logical_conditions[0])
+        list2 = matches_text_criteria(logical_conditions[1][0])
+        set1 = set(list1)
+        set2 = set(list2)
+        common_elements = set1.intersection(set2)
+        common_elements_list = list(common_elements)
+        print(common_elements_list)
         
 
 #main
