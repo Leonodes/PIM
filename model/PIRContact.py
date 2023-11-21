@@ -2,6 +2,7 @@ from View.InputView import Command
 
 class Contact:
     def __init__(self, name, address, mobile_num):
+        self.PIRType = 'Contact'
         self.name = name
         self.address = address
         self.mobile_num = mobile_num
@@ -27,6 +28,7 @@ class Contact:
     #     print("His/Her mobile number is {}".format(self.mobile_num))
     # get contact content
 
+    # create
     def setPIMContact():
         enter = Command()
         # get_name = input("Enter a name for contact item:")
@@ -37,3 +39,25 @@ class Contact:
         get_mobileNum = enter.createContactMobileNumCommand()
 
         return get_name, get_addr, get_mobileNum
+    
+    # read
+    def getPIMContact(self):
+        return self.PIRType, self.name, self.address, self.mobile_num
+
+    # tostring
+    def ContactToString(self):
+        string = self.PIRType + ":\nName: " + self.name + "\nAddress:" + self.address + "\nMobile Number: " + self.mobile_num
+        return string
+    
+    # update
+    def updateContact(self, newName, newAddress, newMobileNum):
+        if newName != self.name:
+            self.name = newName
+        if newAddress != self.address:
+            self.address = newAddress
+        if newMobileNum != self.mobile_num:
+            self.mobile_num = newMobileNum
+        return self.PIRType, self.name, self.address, self.mobile_num
+
+
+    # delete
