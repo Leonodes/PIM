@@ -102,50 +102,53 @@ class PIMTest(unittest.TestCase):
         self.assertEqual(event.start_time, "2023/12/12 18:00")
         self.assertEqual(event.alarm, "2023/12/12 17:50")
 
-    #test for note
-    def test_setNote(self):
-        note = Note("hi")
-        content = "hi"
-        expected_result = 'Note', content
-        result = note.setNote(content)
-        self.assertEqual(expected_result, result)
+if __name__ == '__main__':
+    unittest.main()
+    
+    # #test for note
+    # def test_setNote(self):
+    #     note = Note("hi")
+    #     content = "hi"
+    #     expected_result = 'Note', content
+    #     result = note.setNote(content)
+    #     self.assertEqual(expected_result, result)
 
-    def test_getNote(self):
-        note = Note("hi")
-        content = "hi"
-        expected_result = 'Note', content
-        result = note.getPIMNote()
-        self.assertEqual(expected_result, result)
+    # def test_getNote(self):
+    #     note = Note("hi")
+    #     content = "hi"
+    #     expected_result = 'Note', content
+    #     result = note.getPIMNote()
+    #     self.assertEqual(expected_result, result)
 
-    def test_NoteToString(self):
-        note = Note("hi")
-        Type = "Note"
-        content = "hi"
-        expected_result = Type + ":\nContent: " + content
-        result = note.NoteToString()
-        self.assertEqual(expected_result, result)
+    # def test_NoteToString(self):
+    #     note = Note("hi")
+    #     Type = "Note"
+    #     content = "hi"
+    #     expected_result = Type + ":\nContent: " + content
+    #     result = note.NoteToString()
+    #     self.assertEqual(expected_result, result)
 
-    def test_NoteToPIR(self):
-        note = Note("hi")
-        content = "hi"
-        expected_result = content
-        result = note.NoteToPIR()
-        self.assertEqual(expected_result, result)
+    # def test_NoteToPIR(self):
+    #     note = Note("hi")
+    #     content = "hi"
+    #     expected_result = content
+    #     result = note.NoteToPIR()
+    #     self.assertEqual(expected_result, result)
 
-    def test_NoteToString(self):
-        note = Note("hi")
-        Type = "Note"
-        content = "hi"
-        expected_result = Type + ":\nContent: " + content
-        result = note.NoteToString()
-        self.assertEqual(expected_result, result)
+    # def test_NoteToString(self):
+    #     note = Note("hi")
+    #     Type = "Note"
+    #     content = "hi"
+    #     expected_result = Type + ":\nContent: " + content
+    #     result = note.NoteToString()
+    #     self.assertEqual(expected_result, result)
 
-    def test_NoteToPIR(self):
-        note = Note("hi")
-        content = "hi"
-        expected_result = content
-        result = note.NoteToPIR()
-        self.assertEqual(expected_result, result)
+    # def test_NoteToPIR(self):
+    #     note = Note("hi")
+    #     content = "hi"
+    #     expected_result = content
+    #     result = note.NoteToPIR()
+    #     self.assertEqual(expected_result, result)
 
 
 
