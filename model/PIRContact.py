@@ -29,6 +29,10 @@ class Contact:
     # get contact content
 
     # create
+    def setName(self, newName):
+        self.name = newName
+        return self.name
+    
     def setContact(self, newName, newAddr, newMobileNum):
         self.name = newName
         self.address = newAddr
