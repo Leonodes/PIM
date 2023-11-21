@@ -1,9 +1,11 @@
+import sys
+sys.path.append('C:\\Users\\Leon\\Desktop\\COMP3211\\PIM_group\\PIM')
 from model.PIRNote import Note
 from model.PIRTask import Task
 from model.PIREvent import Event
 from model.PIRContact import Contact
-from checkDateFormat import checkDate
-from insert_delete_replace import insert, delete, replace
+from controller.checkFormat import checkDateFormat,checkConditionFormat,checkOperatorFormat
+from insert_delete_replace_search import insert, delete, replace,matches_text,matches_time,not_included_file
 from findIndex import findIndex
 from View.PIRView import PIRView
 from View.InputView import Command
@@ -35,7 +37,7 @@ class PIRController:
             insert(note.NoteToPIR(),findIndex("note"))
         elif command == 2: #Task
             get_date = enter.getDateCommand()
-            while not checkDate(get_date):
+            while not checkDateFormat(get_date):
                 # print("Enter the right format date for task item:")
                 # get_date = input()
                 get_date = enter.getDateCommandAgain()
@@ -60,13 +62,13 @@ class PIRController:
             get_description = enter.createEventDescCommand()
             # get_start_time = input("Enter start time for event item (MM/dd/yy hh:mm): ")
             get_start_time = enter.getDateCommand()
-            while not checkDate(get_start_time):
+            while not checkDateFormat(get_start_time):
                 # print("Enter the right format date for start time:")
                 # get_start_time = input()
                 get_start_time = enter.getDateCommandAgain()
             # get_alarm = input("Enter a time to alarm you (MM/dd/yy hh:mm):")
             get_alarm = enter.getDateCommand()
-            while not checkDate(get_alarm):
+            while not checkDateFormat(get_alarm):
                 # print("Enter the right format date for alarm time:")
                 # get_alarm = input()
                 get_alarm = enter.getDateCommandAgain()
@@ -75,6 +77,98 @@ class PIRController:
             insert(event.EventToPIR(), findIndex("event"))
         else:
             command = enter.createCommandAgain() # ask user to input again
+
+    def search(self):
+        enter = Command()
+        board = Board() 
+        board.searchBoard()
+        command = enter.searchCommand()
+        if command == 1: # search text
+            text_criteria = enter.get_text_criteria()
+            print(matches_text(text_criteria))
+        elif command == 2: # search time
+            time_criteria = enter.get_time_criteria()
+            while not checkDateFormat(time_criteria):
+                time_criteria = enter.get_time_criteria_again()
+            condition = enter.get_time_condition()
+            while not checkConditionFormat(condition):
+                condition = enter.get_time_condition_again()
+            print(matches_time(time_criteria,condition))
+        elif command == 3: # search involve logical        
+            operator = enter.get_operator()
+            while not checkOperatorFormat(operator):
+                operator = enter.get_operator_again()
+            if operator == "!":
+                not_logic = enter.get_not_logical_input()
+                logic_type = not_logic[0]
+                if logic_type == "text": 
+                    print(not_included_file(matches_text(not_logic[1])))
+                if logic_type == "time":
+                    time_criteria = not_logic[1]
+                    while not checkDateFormat(time_criteria):
+                        time_criteria = enter.get_time_criteria_again()
+                    print(not_included_file(matches_time(time_criteria,not_logic[2])))
+            if operator == "||":
+                or_logics = []
+                while True:
+                    or_logic = enter.get_or_logical_input()
+                    if len(or_logic) == 1 and or_logic[0] == "":
+                        break
+                    or_logics.append(or_logic)
+                for or_logic in or_logics:
+                    logic_type = or_logic[0]
+                    if logic_type == "text": 
+                        print(matches_text(or_logic[1]))
+                    if logic_type == "time":
+                        time_criteria = or_logic[1] 
+                        while not checkDateFormat(time_criteria):
+                            time_criteria = enter.get_time_criteria_again()
+                        print(matches_time(time_criteria,or_logic[2]))
+            if operator == "&&":
+                and_time_input,and_text_input = enter.get_and_logical_input()
+                while not checkDateFormat(and_time_input[0]):
+                    and_time_input = enter.get_time_criteria_again()
+                list1 = matches_time(and_time_input[0],and_time_input[1])
+                list2 = matches_text(and_text_input[0])
+                set1 = set(list1)
+                set2 = set(list2)
+                common_elements = set1.intersection(set2)
+                common_elements_list = list(common_elements)
+                print(common_elements_list)
+
+                
+                        
+                    
+
+
+
+
+
+
+
+
+    
+
+if __name__ == '__main__':
+    pircontroller = PIRController()
+    pircontroller.search()
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
 
     # # get note content
     # @staticmethod

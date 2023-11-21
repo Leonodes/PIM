@@ -1,4 +1,6 @@
 class Board:
+    def __init__(self):
+        pass
     # instruction hints
     def mainBoard():
         print("Hi! Here is Personal Information Manager. Please choose what you want to do.")
@@ -16,7 +18,7 @@ class Board:
         print("4. Create events.")
         print("5. Back to the Home Page")
     
-    def searchBoard():
+    def searchBoard(self):
         print("1. Search with text.")
         print("2. Search with time.")
         print("3. Search with logic.")
