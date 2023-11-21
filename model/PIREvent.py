@@ -3,6 +3,7 @@ from checkDateFormat import checkDate
 
 class Event:
     def __init__(self, description, start_time, alarm):
+        self.PIRType = 'Event'
         self.description = description
         self.start_time = start_time
         self.alarm = alarm
@@ -48,3 +49,22 @@ class Event:
             get_alarm = enter.getDateCommandAgain()
 
         return get_description, get_start_time, get_alarm
+
+    def getPIMEvent(self):
+        return self.PIRType, self.description, self.start_time, self.alarm
+    
+    def EventToString(self):
+        string = self.PIRType + ":\nDescription: " + self.description + "\nStart Time:" + self.start_time + "\nAlarm Time: " + self.alarm
+        return string
+    
+    # update
+    def updateEvent(self, newDesc, newStartTime, newAlarm):
+        if newDesc != self.description:
+            self.description = newDesc
+        if newStartTime != self.start_time:
+            self.start_time = newStartTime
+        if newAlarm != self.alarm:
+            self.alarm = newAlarm
+        return self.PIRType, self.description, self.start_time, self.alarm
+
+    # delete

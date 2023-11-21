@@ -2,6 +2,7 @@ from View.InputView import Command
 
 class Note:
     def __init__(self,content):
+        self.PIRType = 'Note'
         self.content = content
     # def getContent(self):
     #     return self.content
@@ -12,9 +13,26 @@ class Note:
     # def detail_display(self):
     #     print("The content for this note is {}".format(self.content))
 
-# get note content
+    # create
     def setPIMNote():
         # get_note_content = input("Enter your note:")
         # return get_note_content
         enter = Command()
         return enter.createNoteCommand()
+    
+    # read
+    def getPIMNote(self):
+        return self.PIRType, self.content
+    
+    # tostring
+    def NoteToString(self):
+        string = self.PIRType + ":\nContent: " + self.content
+        return string
+
+    # update
+    def updateNote(self, newContent):
+        if newContent != self.content:
+            self.content = newContent
+        return self.PIRType, self.content
+    
+    # delete
