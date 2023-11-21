@@ -1,6 +1,7 @@
 import unittest
 from model.PIRContact import Contact
 from model.PIREvent import Event
+from model.PIRNote import Note
 
 class PIMTest(unittest.TestCase):
     #test for contact
@@ -46,13 +47,119 @@ class PIMTest(unittest.TestCase):
         contact.Name = "Max"
         contact.Addr = "PQ666"
         contact.MobileNum = "66666666"
-        # expected_result = 'Contact', Name, Addr, MobileNum
-        contact.updateContact("Amy", "PQ999", "88888888")
+        # expected_result = 'Contact', contact.name, contact.address, contact.mobile_num
+        result = contact.updateContact("Amy", "PQ999", "88888888")
+        # self.assertEqual(expected_result, result)
         self.assertEqual(contact.name, "Amy")
         self.assertEqual(contact.address, "PQ999")
         self.assertEqual(contact.mobile_num, "88888888")
 
     #test for event
+    def test_setEvent(self):
+        event = Event("Group Meeting","2023/11/11 13:00", "2023/11/11 12:50")
+        Description = "Group Meeting"
+        Start_time = "2023/11/11 13:00"
+        Alarm = "2023/11/11 12:50"
+        expected_result = 'Event', Description, Start_time, Alarm
+        result = event.setEvent(Description, Start_time, Alarm)
+        self.assertEqual(expected_result, result)
+
+    def test_getPIMEvent(self):
+        event = Event("Group Meeting","2023/11/11 13:00", "2023/11/11 12:50")
+        Description = "Group Meeting"
+        Start_time = "2023/11/11 13:00"
+        Alarm = "2023/11/11 12:50"
+        expected_result = 'Event', Description, Start_time, Alarm
+        result = event.setEvent(Description, Start_time, Alarm)
+        self.assertEqual(expected_result, result)
+
+    def test_EventToString(self):
+        event = Event("Group Meeting","2023/11/11 13:00", "2023/11/11 12:50")
+        Type = "Event"
+        Description = "Group Meeting"
+        Start_time = "2023/11/11 13:00"
+        Alarm = "2023/11/11 12:50"
+        expected_result = Type + ":\nDescription: " + Description + "\nStart Time:" + Start_time + "\nAlarm Time: " + Alarm
+        result = event.EventToString()
+        self.assertEqual(expected_result, result)
+
+    def test_EventToPIR(self):
+        event = Event("Group Meeting","2023/11/11 13:00", "2023/11/11 12:50")
+        Description = "Group Meeting"
+        Start_time = "2023/11/11 13:00"
+        Alarm = "2023/11/11 12:50"
+        expected_result = Description + "," + Start_time + "," + Alarm
+        result = event.EventToPIR()
+        self.assertEqual(expected_result, result)
+
+    def test_updateEvent(self):
+        event = Event("Group Meeting","2023/11/11 13:00", "2023/11/11 12:50")
+        event.Description = "Group Meeting"
+        event.Start_time = "2023/11/11 13:00"
+        event.Alarm = "2023/11/11 12:50"
+        result = event.updateEvent("interview", "2023/12/12 18:00", "2023/12/12 17:50")
+        self.assertEqual(event.description , "interview")
+        self.assertEqual(event.start_time, "2023/12/12 18:00")
+        self.assertEqual(event.alarm, "2023/12/12 17:50")
+
+    #test for note
+    def test_setNote(self):
+        note = Note("hi")
+        content = "hi"
+        expected_result = 'Note', content
+        result = note.setNote(content)
+        self.assertEqual(expected_result, result)
+
+    def test_getNote(self):
+        note = Note("hi")
+        content = "hi"
+        expected_result = 'Note', content
+        result = note.getPIMNote()
+        self.assertEqual(expected_result, result)
+
+    def test_NoteToString(self):
+        note = Note("hi")
+        Type = "Note"
+        content = "hi"
+        expected_result = Type + ":\nContent: " + content
+        result = note.NoteToString()
+        self.assertEqual(expected_result, result)
+
+    def test_NoteToPIR(self):
+        note = Note("hi")
+        content = "hi"
+        expected_result = content
+        result = note.NoteToPIR()
+        self.assertEqual(expected_result, result)
+
+    def test_NoteToString(self):
+        note = Note("hi")
+        Type = "Note"
+        content = "hi"
+        expected_result = Type + ":\nContent: " + content
+        result = note.NoteToString()
+        self.assertEqual(expected_result, result)
+
+    def test_NoteToPIR(self):
+        note = Note("hi")
+        content = "hi"
+        expected_result = content
+        result = note.NoteToPIR()
+        self.assertEqual(expected_result, result)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 
     
