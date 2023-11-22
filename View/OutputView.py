@@ -17,12 +17,27 @@ class Board:
         print("3. Create contacts.")
         print("4. Create events.")
         print("5. Back to the Home Page")
+
+    def searchBoardFilter(self):
+        print("----------------------------------------------------")
+        print("-             Search filter to choose              -")
+        print("----------------------------------------------------")
+        print("-              1.Search with single text           -")
+        print("-              2.Search with single time           -")
+        print("-              3.Search with combined logic        -")
+        print("----------------------------------------------------")
     
-    def searchBoard(self):
-        print("1. Search with text.")
-        print("2. Search with time.")
-        print("3. Search with logic.")
-        print("4. Back to the Home Page")
+    def searchTypeBoard(self):
+        print("----------------------------------------------------")
+        print("-                Data type to search               -")
+        print("----------------------------------------------------")
+        print("-                 1.Search Note                    -")
+        print("-                 2.Search Task                    -")
+        print("-                 3.Search Contact                 -")
+        print("-                 4.Search Event                   -")
+        print("-                 5.Search All                     -")
+        print("-                 6.Back to the Home Page          -")
+        print("----------------------------------------------------")
 
     def modifyBoard():
         #first search for PIR, then modify(use replace function)
