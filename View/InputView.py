@@ -75,4 +75,11 @@ class Command:
         conditon = conditon.split(",")
         return conditon
     
+    def get_modify_option(self):
+        return int(input("Enter modify option: 1,2: "))
+    
+    def get_modify_text(self):
+        search_text = input("Enter original text you want to modify: ")
+        replace_text = input("Enter replaced text: ")
+        return search_text,replace_text
     

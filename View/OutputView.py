@@ -58,13 +58,22 @@ class Board:
         print("invalid input, please input again")
 
     def modifyBoard(self):
-        #first search for PIR, then modify(use replace function)
-        pass
+        print("----------------------------------------------------")
+        print("-                  Modify Option                   -")
+        print("----------------------------------------------------")
+        print("-                 1.Global Modify                  -")
+        print("-                 2.Specific Modify                -")
+        print("----------------------------------------------------")
+        
 
     def deleteBoard(self):
         #first search for PIR, then delete(use delete function)
         print("please search for PIRs you want to delete")
-        pass
+        
+    def modify_specific(self):
+        #first search for PIR, then delete(use delete function)
+        print("please search for PIRs you want to modify")
+
 
     def displayBoard(self):
         # displayall

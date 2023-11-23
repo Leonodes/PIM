@@ -133,7 +133,7 @@ class PIRController:
                         break
                     else:
                         print("invalid input, please === enter ! === or === press enter ===") 
-                found_list =  pircollection.not_ornot_filter(text_condition[0],text_condition[1])         
+                found_list =  pircollection.not_ornot_filter_text(text_condition[0],text_condition[1])         
                 print(found_list)
                 print(pircollection.get_index(found_list))
                 return found_list
@@ -291,6 +291,32 @@ class PIRController:
         found_list = self.search()
         index_list = pircollection.get_index(found_list)
         pircollection.delete(index_list)
+
+    def modify(self):
+        board = Board()
+        board.modifyBoard()
+        enter = Command()
+        while True:
+            modify_option = enter.get_modify_option()
+            if modify_option == 1 or modify_option ==2:
+                break
+            else:
+                print("invalid input,please enter int number 1~2")
+        pircollection = PIRCollection()
+        if modify_option == 1:
+            search_text, replace_text = enter.get_modify_text()
+            pircollection.replace_global(search_text,replace_text)
+        else:
+            board.modify_specific()
+            found_list = self.search()
+            index_list = pircollection.get_index(found_list)
+            search_text, replace_text = enter.get_modify_text()
+            pircollection.replace_specific(search_text,replace_text,index_list)
+ 
+        
+
+
+        
 
             
         

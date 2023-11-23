@@ -9,16 +9,15 @@ class PIRCollection:
         self.type_content = None
         self.not_ornot = ""
     
-    # private 實例對象無需訪問
     def matches_text(self,text_criteria):
         found_lines = []
         for line in self.type_content:
             parts = line.split(",")
             parts1 = line.split(" ")
-            if text_criteria in parts or parts1:
+            if text_criteria in parts or text_criteria in parts1:
                 found_lines.append(line.strip())
         return found_lines
-    # private 實例對象無需訪問
+
     def matches_time(self,time_criteria,condition):
         found_lines = []
         for line in self.type_content:
@@ -117,3 +116,19 @@ class PIRCollection:
             return False
         return True
 
+    def replace_global(self,search_text, replace_text):
+        with open(self.record_path,'r') as file:
+            data = file.read()
+            data = data.replace(search_text, replace_text)
+        with open(self.record_path,'w') as file:
+            file.write(data)
+
+    def replace_specific(self,search_text, replace_text,line_number_list):
+        with open(self.record_path,'r') as file:
+            data = file.readlines()
+        for line_number in line_number_list:
+            data[line_number] = data[line_number].replace(search_text,replace_text)
+        with open(self.record_path,'w') as file:
+            file.writelines(data)
+
+    
