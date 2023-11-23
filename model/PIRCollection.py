@@ -131,4 +131,9 @@ class PIRCollection:
         with open(self.record_path,'w') as file:
             file.writelines(data)
 
+    def display(self):
+        for lines in self.type_content:
+            print(lines)
+
+
     

@@ -78,4 +78,14 @@ class Board:
     def displayBoard(self):
         # displayall
         # display single PIR
-        pass
+        print("----------------------------------------------------")
+        print("-                  Display Option                  -")
+        print("----------------------------------------------------")
+        print("-                 1.Display Note                   -")
+        print("-                 2.Display Task                   -")
+        print("-                 3.Display Contact                -")
+        print("-                 4.Display Event                  -")
+        print("-                 5.Display All                    -")
+        print("-                 6.Back to the Home Page          -")
+        print("----------------------------------------------------")
+    

@@ -83,3 +83,6 @@ class Command:
         replace_text = input("Enter replaced text: ")
         return search_text,replace_text
     
+    def get_dispaly_option(self):
+        return int(input("Enter display option: 1,2,3,4,5,6: "))
+    

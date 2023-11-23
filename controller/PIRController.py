@@ -107,7 +107,7 @@ class PIRController:
         pircollection = PIRCollection()
         while True:
             searchType = int(enter.searchTypeCommand())
-            if searchType == 1 or searchType == 2 or searchType == 3 or searchType == 4 or searchType == 5:
+            if searchType in range(1,6):
                 pircollection.updateSearchType(searchType)
                 break
             elif searchType == 6:
@@ -312,13 +312,21 @@ class PIRController:
             index_list = pircollection.get_index(found_list)
             search_text, replace_text = enter.get_modify_text()
             pircollection.replace_specific(search_text,replace_text,index_list)
- 
-        
-
-
-        
-
-            
+    
+    def display(self):
+        board = Board()
+        board.displayBoard()
+        enter = Command()
+        while True:
+            display_option = enter.get_dispaly_option()
+            if display_option in range(1,7):
+                break
+            else:
+                print("invalid input,please enter int number 1~6") 
+        pircollection = PIRCollection()
+        pircollection.updateSearchType(display_option)
+        pircollection.matches_type()
+        pircollection.display()
         
 
 if __name__ == '__main__':
