@@ -1,9 +1,12 @@
+import sys
+sys.path.append('C:\\Users\\Leon\\Desktop\\COMP3211\\PIM_group\\PIM')
 from model.PIRNote import Note
 from model.PIRTask import Task
 from model.PIREvent import Event
 from model.PIRContact import Contact
-from checkDateFormat import checkDate
-from insert_delete_replace import insert, delete, replace
+from model.PIRCollection import PIRCollection
+from controller.checkFormat import checkDateFormat,checkConditionFormat,checkOperatorFormat
+from insert_delete_replace_search import insert, delete, replace
 from findIndex import findIndex
 from View.PIRView import PIRView
 from View.InputView import Command
@@ -17,6 +20,27 @@ class PIRController:
         self.events = Event
         self.contacts = Contact
     
+    def main(self):
+        while True:
+            board = Board()
+            enter = Command()
+            board.mainBoard()
+            activity = enter.mainCommand()
+            if activity == 1:
+                self.create()
+            elif activity == 2:
+                self.search()
+            elif activity == 3:
+                self.modify()
+            elif activity == 4:
+                self.delete()
+            elif activity == 5:
+                self.display()
+            elif activity == 6:
+                sys.exit(0)
+            else:
+                board.getValidInput()
+            
     def create(self):
         enter = Command()
         board = Board()
@@ -35,7 +59,7 @@ class PIRController:
             insert(note.NoteToPIR(),findIndex("note"))
         elif command == 2: #Task
             get_date = enter.getDateCommand()
-            while not checkDate(get_date):
+            while not checkDateFormat(get_date):
                 # print("Enter the right format date for task item:")
                 # get_date = input()
                 get_date = enter.getDateCommandAgain()
@@ -60,13 +84,13 @@ class PIRController:
             get_description = enter.createEventDescCommand()
             # get_start_time = input("Enter start time for event item (MM/dd/yy hh:mm): ")
             get_start_time = enter.getDateCommand()
-            while not checkDate(get_start_time):
+            while not checkDateFormat(get_start_time):
                 # print("Enter the right format date for start time:")
                 # get_start_time = input()
                 get_start_time = enter.getDateCommandAgain()
             # get_alarm = input("Enter a time to alarm you (MM/dd/yy hh:mm):")
             get_alarm = enter.getDateCommand()
-            while not checkDate(get_alarm):
+            while not checkDateFormat(get_alarm):
                 # print("Enter the right format date for alarm time:")
                 # get_alarm = input()
                 get_alarm = enter.getDateCommandAgain()
@@ -75,6 +99,176 @@ class PIRController:
             insert(event.EventToPIR(), findIndex("event"))
         else:
             command = enter.createCommandAgain() # ask user to input again
+
+    def search(self):
+        enter = Command()
+        board = Board() 
+        board.searchTypeBoard()
+        pircollection = PIRCollection()
+        while True:
+            searchType = int(enter.searchTypeCommand())
+            if searchType == 1 or searchType == 2 or searchType == 3 or searchType == 4 or searchType == 5:
+                pircollection.updateSearchType(searchType)
+                break
+            elif searchType == 6:
+                self.main()
+            else:
+                print("invalid input, please enter int number 1~6")
+        # search for Note, Contact
+        pircollection.matches_type()
+        if pircollection.searchType == 1 or pircollection.searchType == 3:
+            board.searchFilterForNoteContact()
+            search_filter = enter.get_search_filter()
+            #search with single text
+            if search_filter == 1:
+                text_condition = enter.get_logical_condition_text()
+                while True:
+                    include_or_not = enter.get_include_or_not()
+                    if include_or_not == "!":
+                        text_condition.insert(0,"-")
+                        break
+                    elif include_or_not == "":
+                        text_condition.insert(0,"+")
+                        break
+                    else:
+                        print("invalid input, please === enter ! === or === press enter ===") 
+                found_list =  pircollection.not_ornot_filter(text_condition[0],text_condition[1])         
+                print(found_list)
+                print(pircollection.get_index(found_list))
+                return found_list
+            if search_filter == 2:
+            #search with combined logic
+                text_conditions = []
+                operators = []
+                # include_or_not
+                while True:
+                    text_condition = enter.get_logical_condition_text()
+                    while True:
+                        include_or_not = enter.get_include_or_not()
+                        if include_or_not == "!":
+                            text_condition.insert(0,"-")
+                            break
+                        elif include_or_not == "":
+                            text_condition.insert(0,"+")
+                            break
+                        else: 
+                            print("invalid input, please === enter ! === or === press enter ===")                   
+                    text_conditions.append(text_condition)
+                    while True:
+                        operator = enter.get_operator()
+                        if operator == "||" or operator == "&&":
+                            operators.append(operator)
+                            break
+                        if operator == "":
+                            break
+                        else:
+                            print("invalid input, please enter === || === or === && ===")
+                    if operator == "":
+                        break
+                filtered_list = []
+                for text_condition in text_conditions:
+                    filtered_list.append(pircollection.not_ornot_filter(text_condition[0],text_condition[1]))
+
+                list2 = [None] * (len(filtered_list) - 1) 
+                if operators[0] == "&&":
+                    set1 = set(filtered_list[0])
+                    set2 = set(filtered_list[1])
+                    list2[0] = set1.intersection(set2)
+                if operators[0] == "||":
+                    set1 = set(filtered_list[0])
+                    set2 = set(filtered_list[1])
+                    list2[0] = set1.union(set2)
+
+                for i in range(2,len(filtered_list)):   
+                                            #len(filtered_list)>=3
+                                            #[1,2,3,4] 保持不變
+                                            #[ 2",3",4"]儲存
+                                            # 1&&2 -> 2" 2"&&3 -> 3" 3"||4 -> 4"
+                    if operators[i-1] == "&&":
+                        set1 = set(filtered_list[i])
+                        set2 = set(list2[i-2])                        
+                        list2.append(set1.intersection(set2))
+                    elif operators[i-1] == "||":
+                        set1 = set(filtered_list[i])
+                        set2 = set(list2[i-2])                        
+                        list2.append(set1.union(set2))  
+                
+                found_list =  list(list2[-1])        
+                print(found_list)
+                print(pircollection.get_index(found_list))
+                return found_list
+        # else:
+
+
+    def delete(self):
+        board = Board()
+        board.deleteBoard()
+        pircollection = PIRCollection()
+        found_list = self.search()
+        index_list = pircollection.get_index(found_list)
+        pircollection.delete(index_list)
+
+            
+        
+
+if __name__ == '__main__':
+    pircontroller = PIRController()
+    pircontroller.main()
+        
+
+
+                
+                
+
+
+            
+
+
+            
+
+           
+        
+
+
+
+
+
+
+
+
+                
+                        
+                    
+
+
+
+
+
+
+
+
+    
+
+if __name__ == '__main__':
+    pircontroller = PIRController()
+    pircontroller.search()
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
 
     # # get note content
     # @staticmethod
