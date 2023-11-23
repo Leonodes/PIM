@@ -13,7 +13,8 @@ class PIRCollection:
     def matches_text(self,text_criteria):
         found_lines = []
         for line in self.type_content:
-            if text_criteria in line:
+            parts = line.split(",")
+            if text_criteria in parts:
                 found_lines.append(line.strip())
         return found_lines
     
