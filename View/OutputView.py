@@ -53,15 +53,16 @@ class Board:
     def getValidInput(self):
         print("invalid input, please input again")
 
-    def modifyBoard():
+    def modifyBoard(self):
         #first search for PIR, then modify(use replace function)
         pass
 
-    def deleteBoard():
+    def deleteBoard(self):
         #first search for PIR, then delete(use delete function)
+        print("please search for PIRs you want to delete")
         pass
 
-    def displayBoard():
+    def displayBoard(self):
         # displayall
         # display single PIR
         pass

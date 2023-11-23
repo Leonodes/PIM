@@ -131,8 +131,11 @@ class PIRController:
                         text_condition.insert(0,"+")
                         break
                     else:
-                        print("invalid input, please === enter ! === or === press enter ===")           
-                print(pircollection.not_ornot_filter(text_condition[0],text_condition[1]))
+                        print("invalid input, please === enter ! === or === press enter ===") 
+                found_list =  pircollection.not_ornot_filter(text_condition[0],text_condition[1])         
+                print(found_list)
+                print(pircollection.get_index(found_list))
+                return found_list
             if search_filter == 2:
             #search with combined logic
                 text_conditions = []
@@ -189,9 +192,21 @@ class PIRController:
                         set1 = set(filtered_list[i])
                         set2 = set(list2[i-2])                        
                         list2.append(set1.union(set2))  
-                return print(list(list2[-1])) 
+                
+                found_list =  list(list2[-1])        
+                print(found_list)
+                print(pircollection.get_index(found_list))
+                return found_list
         # else:
 
+
+    def delete(self):
+        board = Board()
+        board.deleteBoard()
+        pircollection = PIRCollection()
+        found_list = self.search()
+        index_list = pircollection.get_index(found_list)
+        pircollection.delete(index_list)
 
             
         
@@ -199,9 +214,7 @@ class PIRController:
 if __name__ == '__main__':
     pircontroller = PIRController()
     pircontroller.main()
-
-   
-                
+        
 
 
                 

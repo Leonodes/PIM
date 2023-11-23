@@ -79,6 +79,24 @@ class PIRCollection:
         if not_ornot == "+":
             return self.matches_text(text_criteria)
 
+    def get_index(self,found_lines):
+        with open(self.record_path, 'r') as file:
+            lines = file.readlines()
+        index_list = []
+        for index, line in enumerate(lines):
+            for found_line in found_lines:
+                if found_line in line:
+                    index_list.append(index)
+        return index_list
+    
+    def delete(self,line_number_list):
+        with open(self.record_path, 'r') as file:
+            lines = file.readlines()
+        for line_number in line_number_list:
+            if line_number > 0 and line_number <= len(lines):
+                del lines[line_number]
+        with open(self.record_path, 'w') as file:
+            file.writelines(lines)       
 
 
 
