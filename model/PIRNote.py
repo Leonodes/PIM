@@ -1,40 +1,30 @@
-from View.InputView import Command
-
 class Note:
     def __init__(self,content):
         self.PIRType = 'Note'
         self.content = content
-    # def getContent(self):
-    #     return self.content
-    # def setContent(self, content):
-    #     self.content = content
-    # def display(self):
-    #     print(self.content)
-    # def detail_display(self):
-    #     print("The content for this note is {}".format(self.content))
 
-    # create    
+    # create (return info)  
     def setNote(self, newContent):
         self.content = newContent
         return self.PIRType, self.content
     
-    # read
+    # read(return info)
     def getPIMNote(self):
         return self.PIRType, self.content
     
-    # tostring
+    # tostring(return string to printed PIR record on interface)
     def NoteToString(self):
         string = self.PIRType + ":\nContent: " + self.content
         return string
     
-    # note to PIR record form
+    # note to PIR record form(return in PIR form)
     def NoteToPIR(self):
         return self.content
 
-    # update
+    # update(return updated info)
     def updateNote(self, newContent):
         if newContent != self.content:
             self.content = newContent
         return self.PIRType, self.content
     
-    # delete
+    # delete(in PIRCollection)

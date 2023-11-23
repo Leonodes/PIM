@@ -10,6 +10,7 @@ class PIRCollection:
         self.not_ornot = ""
     
     # private 實例對象無需訪問
+    # check if match text
     def matches_text(self,text_criteria):
         found_lines = []
         for line in self.type_content:
@@ -18,6 +19,7 @@ class PIRCollection:
                 found_lines.append(line.strip())
         return found_lines
     
+    # check if match time(>, <, =)
     def matches_time(self,time_criteria,condition):
         found_lines = []
         for line in self.type_content:
@@ -36,10 +38,12 @@ class PIRCollection:
                     pass
             return found_lines
         
-    def updateSearchType(self,searchType):
+    # update search type        
+    def updateSearchType(self, searchType):
         self.searchType = searchType
     
-    def findIndex(self,searchType):
+    # find line index range of searched PIR type
+    def findIndex(self, searchType):
         with open(self.record_path, "r") as file:
             lines = file.readlines()
         if searchType == 1:
@@ -57,6 +61,7 @@ class PIRCollection:
                 index = i
                 return index
 
+    # match type
     def matches_type(self):
         with open(self.record_path, "r") as file:
             lines = file.readlines()
@@ -66,6 +71,7 @@ class PIRCollection:
                 self.type_content = lines
         return self.type_content
     
+    # check if included in file
     def not_included_file(self,strings_to_remove):
         found_lines = []
         for line in self.type_content:
@@ -73,12 +79,14 @@ class PIRCollection:
                 found_lines.append(line.rstrip())
         return found_lines
     
+    # 
     def not_ornot_filter(self,not_ornot,text_criteria):
         if not_ornot == "-":
             return self.not_included_file(self.matches_text(text_criteria))
         if not_ornot == "+":
             return self.matches_text(text_criteria)
 
+    # get index of found line
     def get_index(self,found_lines):
         with open(self.record_path, 'r') as file:
             lines = file.readlines()
@@ -89,6 +97,7 @@ class PIRCollection:
                     index_list.append(index)
         return index_list
     
+    #  delete a line from lines list, then copy left lines into file
     def delete(self,line_number_list):
         with open(self.record_path, 'r') as file:
             lines = file.readlines()

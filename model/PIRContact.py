@@ -1,59 +1,32 @@
-from View.InputView import Command
-
 class Contact:
     def __init__(self, name, address, mobile_num):
         self.PIRType = 'Contact'
         self.name = name
         self.address = address
         self.mobile_num = mobile_num
-    # def getName(self):
-    #     return self.name
-    # def setName(self, name):
-    #     self.name = name
-    # def getAddress(self):
-    #     return self.address
-    # def setAddress(self, address):
-    #     self.address = address
-    # def getMobileNum(self):
-    #     return self.mobile_num
-    # def setMobileNum(self, mobile_num):
-    #     self.mobile_num = mobile_num
-    # def display(self):
-    #     print(self.name)
-    #     print(self.address)
-    #     print(self.mobile_num)
-    # def detail_display(self):
-    #     print("The name is {}".format(self.name))
-    #     print("His/Her address is {}". format(self.address))
-    #     print("His/Her mobile number is {}".format(self.mobile_num))
-    # get contact content
-
-    # create
-    def setName(self, newName):
-        self.name = newName
-        return self.name
     
+    # create (return info)
     def setContact(self, newName, newAddr, newMobileNum):
         self.name = newName
         self.address = newAddr
         self.mobile_num = newMobileNum
         return self.PIRType, self.name, self.address, self.mobile_num
         
-    # read
+    # read(return info)
     def getContact(self):
         return self.PIRType, self.name, self.address, self.mobile_num
 
-    # tostring
+    # tostring(return string to printed PIR record on interface)
     def ContactToString(self):
         string = self.PIRType + ":\nName: " + self.name + "\nAddress:" + self.address + "\nMobile Number: " + self.mobile_num
         return string
     
-    # contact to PIR record form
+    # contact to PIR record form(return in PIR form)
     def ContactToPIR(self):
         return self.name + "," + self.address + "," + self.mobile_num
     
     
-    # update
+    # update(return updated info)
     def updateContact(self, newName, newAddress, newMobileNum):
         if newName != self.name:
             self.name = newName
@@ -64,5 +37,5 @@ class Contact:
         return self.PIRType, self.name, self.address, self.mobile_num
 
 
-    # delete
+    # delete(in PIRCollection)
 
