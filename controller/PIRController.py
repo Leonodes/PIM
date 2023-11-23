@@ -114,11 +114,12 @@ class PIRController:
                 self.main()
             else:
                 print("invalid input, please enter int number 1~6")
-        # search for Note, Contact
         pircollection.matches_type()
+
+        # Search Note, Contact
         if pircollection.searchType == 1 or pircollection.searchType == 3:
             board.searchFilterForNoteContact()
-            search_filter = enter.get_search_filter()
+            search_filter = enter.get_search_filterNoteContact()
             #search with single text
             if search_filter == 1:
                 text_condition = enter.get_logical_condition_text()
@@ -167,38 +168,121 @@ class PIRController:
                         break
                 filtered_list = []
                 for text_condition in text_conditions:
-                    filtered_list.append(pircollection.not_ornot_filter(text_condition[0],text_condition[1]))
+                    filtered_list.append(pircollection.not_ornot_filter_text(text_condition[0],text_condition[1]))     
+                found_list = self.get_union_or_intersection(filtered_list,operators)       
+                print(pircollection.get_index(found_list))
+                return found_list
+            else:
+                print("invalid input,please enter int number 1~2")
+        
+        # Search Task, Event
+        else:
+            board.searchFilterForTaskEvent()
+            search_filter = enter.get_search_filterTaskEvent()
 
-                list2 = [None] * (len(filtered_list) - 1) 
-                if operators[0] == "&&":
-                    set1 = set(filtered_list[0])
-                    set2 = set(filtered_list[1])
-                    list2[0] = set1.intersection(set2)
-                if operators[0] == "||":
-                    set1 = set(filtered_list[0])
-                    set2 = set(filtered_list[1])
-                    list2[0] = set1.union(set2)
-
-                for i in range(2,len(filtered_list)):   
-                                            #len(filtered_list)>=3
-                                            #[1,2,3,4] 保持不變
-                                            #[ 2",3",4"]儲存
-                                            # 1&&2 -> 2" 2"&&3 -> 3" 3"||4 -> 4"
-                    if operators[i-1] == "&&":
-                        set1 = set(filtered_list[i])
-                        set2 = set(list2[i-2])                        
-                        list2.append(set1.intersection(set2))
-                    elif operators[i-1] == "||":
-                        set1 = set(filtered_list[i])
-                        set2 = set(list2[i-2])                        
-                        list2.append(set1.union(set2))  
-                
-                found_list =  list(list2[-1])        
+            #search with single text
+            if search_filter == 1:
+                text_condition = enter.get_logical_condition_text()
+                while True:
+                    include_or_not = enter.get_include_or_not()
+                    if include_or_not == "!":
+                        text_condition.insert(0,"-")
+                        break
+                    elif include_or_not == "":
+                        text_condition.insert(0,"+")
+                        break
+                    else:
+                        print("invalid input, please === enter ! === or === press enter ===") 
+                found_list =  pircollection.not_ornot_filter_text(text_condition[0],text_condition[1])         
                 print(found_list)
                 print(pircollection.get_index(found_list))
                 return found_list
-        # else:
+            #search with single time
+            if search_filter == 2:
+                time_condition = enter.get_logical_condition_time()
+                while True:
+                    include_or_not = enter.get_include_or_not()
+                    if include_or_not == "!":
+                        not_ornot = "-"
+                        break
+                    elif include_or_not == "":
+                        not_ornot = "+"
+                        break
+                    else:
+                        print("invalid input, please === enter ! === or === press enter ===")   
+                found_list =  pircollection.not_ornot_filter_time(not_ornot,time_condition[0],time_condition[1]) 
+                print(found_list)
+                print(pircollection.get_index(found_list))  
+                return found_list
+            #search with combined logic
+            if search_filter == 3:
+                conditions = []
+                operators = []
+                while True:
+                    condition = enter.get_logical_condition_withtime()
+                    while True:
+                        include_or_not = enter.get_include_or_not()
+                        if include_or_not == "!":
+                            condition.insert(0,"-")
+                            break
+                        elif include_or_not == "":
+                            condition.insert(0,"+")
+                            break
+                        else: 
+                            print("invalid input, please === enter ! === or === press enter ===")                   
+                    conditions.append(condition)
+                    while True:
+                        operator = enter.get_operator()
+                        if operator == "||" or operator == "&&":
+                            operators.append(operator)
+                            break
+                        if operator == "":
+                            break
+                        else:
+                            print("invalid input, please enter === || === or === && ===")
+                    if operator == "":
+                        break
+                filtered_list = []
+                for condition in conditions:
+                    if len(condition) == 3:
+                        filtered_list.append(pircollection.not_ornot_filter_text(condition[0],condition[2]))
+                    else:
+                        filtered_list.append(pircollection.not_ornot_filter_time(condition[0],condition[2],condition[3])) 
 
+                found_list = self.get_union_or_intersection(filtered_list,operators)       
+                print(pircollection.get_index(found_list))
+                return found_list
+            else:
+                print("invalid input,please enter int number 1~2")
+        
+    def get_union_or_intersection(self,filtered_list,operators):      
+        list2 = [None] * (len(filtered_list) - 1) 
+        if operators[0] == "&&":
+            set1 = set(filtered_list[0])
+            set2 = set(filtered_list[1])
+            list2[0] = set1.intersection(set2)
+        if operators[0] == "||":
+            set1 = set(filtered_list[0])
+            set2 = set(filtered_list[1])
+            list2[0] = set1.union(set2)
+
+        for i in range(2,len(filtered_list)):   
+                                    #len(filtered_list)>=3
+                                    #[1,2,3,4] 保持不變
+                                    #[ 2",3",4"]儲存
+                                    # 1&&2 -> 2" 2"&&3 -> 3" 3"||4 -> 4"
+            if operators[i-1] == "&&":
+                set1 = set(filtered_list[i])
+                set2 = set(list2[i-2])                        
+                list2.append(set1.intersection(set2))
+            elif operators[i-1] == "||":
+                set1 = set(filtered_list[i])
+                set2 = set(list2[i-2])                        
+                list2.append(set1.union(set2))  
+        
+        found_list =  list(list2[-1])        
+        print(found_list)
+        return found_list
 
     def delete(self):
         board = Board()

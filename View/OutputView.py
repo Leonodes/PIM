@@ -15,11 +15,15 @@ class Board:
         print("----------------------------------------------------")
     
     def createBoard():
-        print("1. Create Quick Notes")
-        print("2. Create tasks.")
-        print("3. Create contacts.")
-        print("4. Create events.")
-        print("5. Back to the Home Page")
+        print("----------------------------------------------------")
+        print("-             Create data type to choose           -")
+        print("----------------------------------------------------")
+        print("-               1.Create Quick Notes               -")
+        print("-               2.Create tasks                     -")
+        print("-               3.Create contacts                  -")
+        print("-               4.Create events                    -")
+        print("-               5.Back to the Home Page            -")
+        print("----------------------------------------------------")
 
     def searchFilterForTaskEvent(self):
         print("----------------------------------------------------")
