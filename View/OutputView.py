@@ -15,11 +15,15 @@ class Board:
         print("----------------------------------------------------")
     
     def createBoard():
-        print("1. Create Quick Notes")
-        print("2. Create tasks.")
-        print("3. Create contacts.")
-        print("4. Create events.")
-        print("5. Back to the Home Page")
+        print("----------------------------------------------------")
+        print("-             Create data type to choose           -")
+        print("----------------------------------------------------")
+        print("-               1.Create Quick Notes               -")
+        print("-               2.Create tasks                     -")
+        print("-               3.Create contacts                  -")
+        print("-               4.Create events                    -")
+        print("-               5.Back to the Home Page            -")
+        print("----------------------------------------------------")
 
     def searchFilterForTaskEvent(self):
         print("----------------------------------------------------")
@@ -54,13 +58,22 @@ class Board:
         print("invalid input, please input again")
 
     def modifyBoard(self):
-        #first search for PIR, then modify(use replace function)
-        pass
+        print("----------------------------------------------------")
+        print("-                  Modify Option                   -")
+        print("----------------------------------------------------")
+        print("-                 1.Global Modify                  -")
+        print("-                 2.Specific Modify                -")
+        print("----------------------------------------------------")
+        
 
     def deleteBoard(self):
         #first search for PIR, then delete(use delete function)
         print("please search for PIRs you want to delete")
-        pass
+        
+    def modify_specific(self):
+        #first search for PIR, then delete(use delete function)
+        print("please search for PIRs you want to modify")
+
 
     def displayBoard(self):
         # displayall
