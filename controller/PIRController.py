@@ -40,7 +40,8 @@ class PIRController:
                 sys.exit(0)
             else:
                 board.getValidInput()
-            
+
+    @staticmethod       
     def create(self):
         enter = Command()
         board = Board()
@@ -100,6 +101,7 @@ class PIRController:
         else:
             command = enter.createCommandAgain() # ask user to input again
 
+    @staticmethod
     def search(self):
         enter = Command()
         board = Board() 
@@ -199,7 +201,7 @@ class PIRController:
                 return found_list
         # else:
 
-
+    @staticmethod
     def delete(self):
         board = Board()
         board.deleteBoard()
