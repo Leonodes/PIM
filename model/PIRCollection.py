@@ -6,17 +6,20 @@ class PIRCollection:
         self.record_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),'records.pim')
         self.include_or_not = False
         self.operator = "&&"
+        self.type_content = None
+        self.not_ornot = ""
     
-    def matches_text(self,text_criteria,lines):
+    # private 實例對象無需訪問
+    def matches_text(self,text_criteria):
         found_lines = []
-        for line in lines:
+        for line in self.type_content:
             if text_criteria in line:
                 found_lines.append(line.strip())
         return found_lines
     
-    def matches_time(self,time_criteria,condition,lines):
+    def matches_time(self,time_criteria,condition):
         found_lines = []
-        for line in lines:
+        for line in self.type_content:
             parts = line.split(",")
             for part in parts:
                 time = datetime.strptime(time_criteria.strip(),"%Y/%m/%d %H:%M")
@@ -55,14 +58,27 @@ class PIRCollection:
 
     def matches_type(self):
         with open(self.record_path, "r") as file:
-            content = file.read()
+            lines = file.readlines()
             if self.searchType == 1 or self.searchType == 2 or self.searchType == 3 or self.searchType == 4:
-                extracted_content = content[self.findIndex(self.searchType):self.findIndex(self.searchType+1)]
+                self.type_content = lines[self.findIndex(self.searchType)+1:self.findIndex(self.searchType+1)]
             else:
-                extracted_content = content
-        return extracted_content
+                self.type_content = lines
+        return self.type_content
     
+    def not_included_file(self,strings_to_remove):
+        found_lines = []
+        for line in self.type_content:
+            if not any(string in line for string in strings_to_remove):
+                found_lines.append(line.rstrip())
+        return found_lines
     
+    def not_ornot_filter(self,not_ornot,text_criteria):
+        if not_ornot == "-":
+            return self.not_included_file(self.matches_text(text_criteria))
+        if not_ornot == "+":
+            return self.matches_text(text_criteria)
+
+
 
 
 

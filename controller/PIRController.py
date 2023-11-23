@@ -4,8 +4,9 @@ from model.PIRNote import Note
 from model.PIRTask import Task
 from model.PIREvent import Event
 from model.PIRContact import Contact
+from model.PIRCollection import PIRCollection
 from controller.checkFormat import checkDateFormat,checkConditionFormat,checkOperatorFormat
-from insert_delete_replace_search import insert, delete, replace,matches_text,matches_time,not_included_file
+from insert_delete_replace_search import insert, delete, replace
 from findIndex import findIndex
 from View.PIRView import PIRView
 from View.InputView import Command
@@ -19,6 +20,27 @@ class PIRController:
         self.events = Event
         self.contacts = Contact
     
+    def main(self):
+        while True:
+            board = Board()
+            enter = Command()
+            board.mainBoard()
+            activity = enter.mainCommand()
+            if activity == 1:
+                self.create()
+            elif activity == 2:
+                self.search()
+            elif activity == 3:
+                self.modify()
+            elif activity == 4:
+                self.delete()
+            elif activity == 5:
+                self.display()
+            elif activity == 6:
+                sys.exit(0)
+            else:
+                board.getValidInput()
+            
     def create(self):
         enter = Command()
         board = Board()
@@ -81,60 +103,125 @@ class PIRController:
     def search(self):
         enter = Command()
         board = Board() 
-        board.searchBoard()
-        command = enter.searchCommand()
-        if command == 1: # search text
-            text_criteria = enter.get_text_criteria()
-            print(matches_text(text_criteria))
-        elif command == 2: # search time
-            time_criteria = enter.get_time_criteria()
-            while not checkDateFormat(time_criteria):
-                time_criteria = enter.get_time_criteria_again()
-            condition = enter.get_time_condition()
-            while not checkConditionFormat(condition):
-                condition = enter.get_time_condition_again()
-            print(matches_time(time_criteria,condition))
-        elif command == 3: # search involve logical        
-            operator = enter.get_operator()
-            while not checkOperatorFormat(operator):
-                operator = enter.get_operator_again()
-            if operator == "!":
-                not_logic = enter.get_not_logical_input()
-                logic_type = not_logic[0]
-                if logic_type == "text": 
-                    print(not_included_file(matches_text(not_logic[1])))
-                if logic_type == "time":
-                    time_criteria = not_logic[1]
-                    while not checkDateFormat(time_criteria):
-                        time_criteria = enter.get_time_criteria_again()
-                    print(not_included_file(matches_time(time_criteria,not_logic[2])))
-            if operator == "||":
-                or_logics = []
+        board.searchTypeBoard()
+        pircollection = PIRCollection()
+        while True:
+            searchType = int(enter.searchTypeCommand())
+            if searchType == 1 or searchType == 2 or searchType == 3 or searchType == 4 or searchType == 5:
+                pircollection.updateSearchType(searchType)
+                break
+            elif searchType == 6:
+                self.main()
+            else:
+                print("invalid input, please enter int number 1~6")
+        # search for Note, Contact
+        pircollection.matches_type()
+        if pircollection.searchType == 1 or pircollection.searchType == 3:
+            board.searchFilterForNoteContact()
+            search_filter = enter.get_search_filter()
+            #search with single text
+            if search_filter == 1:
+                text_condition = enter.get_logical_condition_text()
                 while True:
-                    or_logic = enter.get_or_logical_input()
-                    if len(or_logic) == 1 and or_logic[0] == "":
+                    include_or_not = enter.get_include_or_not()
+                    if include_or_not == "!":
+                        text_condition.insert(0,"-")
                         break
-                    or_logics.append(or_logic)
-                for or_logic in or_logics:
-                    logic_type = or_logic[0]
-                    if logic_type == "text": 
-                        print(matches_text(or_logic[1]))
-                    if logic_type == "time":
-                        time_criteria = or_logic[1] 
-                        while not checkDateFormat(time_criteria):
-                            time_criteria = enter.get_time_criteria_again()
-                        print(matches_time(time_criteria,or_logic[2]))
-            if operator == "&&":
-                and_time_input,and_text_input = enter.get_and_logical_input()
-                while not checkDateFormat(and_time_input[0]):
-                    and_time_input = enter.get_time_criteria_again()
-                list1 = matches_time(and_time_input[0],and_time_input[1])
-                list2 = matches_text(and_text_input[0])
-                set1 = set(list1)
-                set2 = set(list2)
-                common_elements = set1.intersection(set2)
-                common_elements_list = list(common_elements)
-                print(common_elements_list)
+                    elif include_or_not == "":
+                        text_condition.insert(0,"+")
+                        break
+                    else:
+                        print("invalid input, please === enter ! === or === press enter ===")           
+                print(pircollection.not_ornot_filter(text_condition[0],text_condition[1]))
+            if search_filter == 2:
+            #search with combined logic
+                text_conditions = []
+                operators = []
+                # include_or_not
+                while True:
+                    text_condition = enter.get_logical_condition_text()
+                    while True:
+                        include_or_not = enter.get_include_or_not()
+                        if include_or_not == "!":
+                            text_condition.insert(0,"-")
+                            break
+                        elif include_or_not == "":
+                            text_condition.insert(0,"+")
+                            break
+                        else: 
+                            print("invalid input, please === enter ! === or === press enter ===")                   
+                    text_conditions.append(text_condition)
+                    while True:
+                        operator = enter.get_operator()
+                        if operator == "||" or operator == "&&":
+                            operators.append(operator)
+                            break
+                        if operator == "":
+                            break
+                        else:
+                            print("invalid input, please enter === || === or === && ===")
+                    if operator == "":
+                        break
+                filtered_list = []
+                for text_condition in text_conditions:
+                    filtered_list.append(pircollection.not_ornot_filter(text_condition[0],text_condition[1]))
+
+                list2 = [None] * (len(filtered_list) - 1) 
+                if operators[0] == "&&":
+                    set1 = set(filtered_list[0])
+                    set2 = set(filtered_list[1])
+                    list2[0] = set1.intersection(set2)
+                if operators[0] == "||":
+                    set1 = set(filtered_list[0])
+                    set2 = set(filtered_list[1])
+                    list2[0] = set1.union(set2)
+
+                for i in range(2,len(filtered_list)):   
+                                            #len(filtered_list)>=3
+                                            #[1,2,3,4] 保持不變
+                                            #[ 2",3",4"]儲存
+                                            # 1&&2 -> 2" 2"&&3 -> 3" 3"||4 -> 4"
+                    if operators[i-1] == "&&":
+                        set1 = set(filtered_list[i])
+                        set2 = set(list2[i-2])                        
+                        list2.append(set1.intersection(set2))
+                    elif operators[i-1] == "||":
+                        set1 = set(filtered_list[i])
+                        set2 = set(list2[i-2])                        
+                        list2.append(set1.union(set2))  
+                return print(list(list2[-1])) 
+        # else:
+
+
+            
+        
+
+if __name__ == '__main__':
+    pircontroller = PIRController()
+    pircontroller.main()
+
+   
+                
+
+
+                
+                
+
+
+            
+
+
+            
+
+           
+        
+
+
+
+
+
+
+
 
                 
                         

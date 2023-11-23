@@ -2,14 +2,17 @@ class Board:
     def __init__(self):
         pass
     # instruction hints
-    def mainBoard():
-        print("Hi! Here is Personal Information Manager. Please choose what you want to do.")
-        print("1. Create Personal Information Records.")
-        print("2. Search Personal Information Records.")
-        print("3. Modify Personal Information Records.")
-        print("4. Delete Personal Information Records.")
-        print("5. Display Personal Information Records.")
-        print("6. Exit the system")
+    def mainBoard(self):
+        print("----------------------------------------------------")
+        print("-     Hi! Here is Personal Information Manager     -")
+        print("----------------------------------------------------")
+        print("-       1.Create Personal Information Records      -")
+        print("-       2.Search Personal Information Records      -")
+        print("-       3.Modify Personal Information Records      -")
+        print("-       4.Delete Personal Information Records      -")
+        print("-       5.Display Personal Information Records     -")
+        print("-       6.Exit the system                          -")
+        print("----------------------------------------------------")
     
     def createBoard():
         print("1. Create Quick Notes")
@@ -18,13 +21,21 @@ class Board:
         print("4. Create events.")
         print("5. Back to the Home Page")
 
-    def searchBoardFilter(self):
+    def searchFilterForTaskEvent(self):
         print("----------------------------------------------------")
         print("-             Search filter to choose              -")
         print("----------------------------------------------------")
         print("-              1.Search with single text           -")
         print("-              2.Search with single time           -")
         print("-              3.Search with combined logic        -")
+        print("----------------------------------------------------")
+
+    def searchFilterForNoteContact(self):
+        print("----------------------------------------------------")
+        print("-             Search filter to choose              -")
+        print("----------------------------------------------------")
+        print("-              1.Search with single text           -")
+        print("-              2.Search with combined logic        -")
         print("----------------------------------------------------")
     
     def searchTypeBoard(self):
@@ -38,6 +49,9 @@ class Board:
         print("-                 5.Search All                     -")
         print("-                 6.Back to the Home Page          -")
         print("----------------------------------------------------")
+
+    def getValidInput(self):
+        print("invalid input, please input again")
 
     def modifyBoard():
         #first search for PIR, then modify(use replace function)
