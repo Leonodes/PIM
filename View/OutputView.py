@@ -65,6 +65,7 @@ class Board:
         print("----------------------------------------------------")
         print("-                 1.Global Modify                  -")
         print("-                 2.Specific Modify                -")
+        print("-                 3.Back to the Home Page          -")
         print("----------------------------------------------------")
         
     def successCreate(self):
@@ -83,6 +84,9 @@ class Board:
     def modify_specific(self):
         #first search for PIR, then delete(use delete function)
         print("please search for PIRs you want to modify")
+
+    def modify_nothing(self):
+        print("nothing to modify, please try again")
 
 
     def displayBoard(self):
