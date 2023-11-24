@@ -1,0 +1,27 @@
+Test coverage:
+
+updateContact:
+Original contact: Max, PQ666, 66666666
+Name      Address      Mobile_num       Expected result        BranchesCovered
+Amy       PQ666        66666666         Amy, PQ666, 66666666  c31 = True
+Max       PQ888        66666666         Max, PQ888, 66666666  c31 = False , c33 = True
+Max       PQ666        88888888         Max, PQ666, 88888888  c31 = False , c33 = False , c35 = True
+
+updateEvent:
+Original event: Group Meeting,2023/11/11 13:00, 2023/11/11 12:50
+Description      Start_time        Alarm              Expected result                                     BranchesCovered
+Presentation     2023/11/11 13:00  2023/11/11 12:50   Presentation,2023/11/11 13:00, 2023/11/11 12:50     c30 = True
+Group Meeting    2023/11/11 15:00  2023/11/11 12:50   Group Meeting,2023/11/11 15:00, 2023/11/11 12:50    c30 = False , c32 = True
+Group Meeting    2023/11/11 13:00  2023/11/11 14:50   Group Meeting,2023/11/11 13:00, 2023/11/11 14:50    c30 = False , c32 = False ,c34 = True
+
+updateNote:
+Original note: hi
+Content       Expected result       BranchesCovered   
+hello         hello                 c26 = True
+
+updateTask:
+Original task: Assignment 1,2023/10/01 23:59
+Description      Deadline           Expected result                 BranchesCovered
+Group Report     2023/10/01 23:59   Group Report,2023/10/01 23:59   c28 = True
+Assignment 1     2023/10/11 23:59   Assignment 1,2023/10/11 23:59   c28 = False , c30 = True
+
