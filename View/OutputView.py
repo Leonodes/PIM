@@ -67,7 +67,9 @@ class Board:
         print("-                 2.Specific Modify                -")
         print("----------------------------------------------------")
         
-
+    def successCreate(self):
+        print("You have successfully create a PIR and saved into records.")
+    
     def deleteBoard(self):
         #first search for PIR, then delete(use delete function)
         print("please search for PIRs you want to delete")
@@ -102,7 +104,8 @@ class Board:
                 print("invalid input,please enter int number 1~6") 
         pircollection.updateSearchType(display_option)
         content_to_display = pircollection.matches_type()
-        for lines in content_to_display:
-            print(lines)
-        
+        if display_option in range(1,6):
+            for lines in content_to_display:
+                print(lines)
+            
     

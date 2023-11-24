@@ -41,8 +41,7 @@ class PIRController:
                 sys.exit(0)
             else:
                 board.getValidInput()
-
-    @staticmethod       
+     
     def create(self):
         enter = Command()
         board = Board()
@@ -56,21 +55,20 @@ class PIRController:
         # insert PIR into PIM file
         if command == 1: # Note
             get_content = enter.createNoteCommand()
-            note = Note()
+            note = Note('')
             note.setNote(get_content)
             insert(note.NoteToPIR(),findIndex("note"))
+            board.successCreate()
         elif command == 2: #Task
             get_date = enter.getDateCommand()
             while not checkDateFormat(get_date):
-                # print("Enter the right format date for task item:")
-                # get_date = input()
                 get_date = enter.getDateCommandAgain()
             date = get_date
-            # taskItem = input("Enter task text:")
             taskItem = enter.createTaskTextCommand()
-            task = Task()
-            task.setTask(date, taskItem)
+            task = Task('','')
+            task.setTask(taskItem,date)
             insert(task.TaskToPIR(), findIndex("task"))
+            board.successCreate()
         elif command == 3: # Contact
             # get_name = input("Enter a name for contact item:")
             get_name = enter.createContactNameCommand()
@@ -78,9 +76,11 @@ class PIRController:
             get_addr = enter.createContactAddrCommand()
             # get_mobileNum = int(input("Enter a number for contact item"))
             get_mobileNum = enter.createContactMobileNumCommand()
-            contact = Contact()
+            
+            contact = Contact('','','')
             contact.setContact(get_name, get_addr,get_mobileNum)
             insert(contact.ContactToPIR(), findIndex("contact"))
+            board.successCreate()
         elif command == 4: # Event
             # get_description = input("Enter a description for this event: ")
             get_description = enter.createEventDescCommand()
@@ -96,13 +96,13 @@ class PIRController:
                 # print("Enter the right format date for alarm time:")
                 # get_alarm = input()
                 get_alarm = enter.getDateCommandAgain()
-            event = Event()
+            event = Event('','','')
             event.setEvent(get_description, get_start_time, get_alarm)
             insert(event.EventToPIR(), findIndex("event"))
+            board.successCreate()
         else:
             command = enter.createCommandAgain() # ask user to input again
 
-    @staticmethod
     def search(self):
         enter = Command()
         board = Board() 
