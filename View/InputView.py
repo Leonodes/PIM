@@ -57,7 +57,7 @@ class Command:
         return conditon
 
     def get_include_or_not(self):
-        not_operator = input("Enter \"!\" to search excluding this condition, or PRESS \"enter\" button === to search including this condition: ")
+        not_operator = input("Enter \"!\" to search excluding this condition, or PRESS \"enter\" button to search including this condition: ")
         return not_operator
     
     def get_operator(self):
