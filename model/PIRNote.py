@@ -1,12 +1,13 @@
 class Note:
-    def __init__(self,content):
+    def __init__(self, content):
         self.PIRType = 'Note'
         self.content = content
 
-    # create (return info)  
+    # create (return info) 
     def setNote(self, newContent):
         self.content = newContent
         return self.PIRType, self.content
+
     
     # read(return info)
     def getPIMNote(self):

@@ -21,7 +21,8 @@ class Command:
 
     # create note command
     def createNoteCommand(self):
-        return input("Enter your note:")
+        content = input("Enter your note:")
+        return content
     
     # create task (text) command
     def createTaskTextCommand(self):
@@ -32,10 +33,13 @@ class Command:
         return input("Enter a name for contact item:")
     
     def createContactAddrCommand(self):
-        return input("Enter an address for contact item: ")
+        return input("Enter an contact address: ")
     
     def createContactMobileNumCommand(self):
-        return int(input("Enter a number for contact item"))
+        return input("Enter a contact number: ")
+    
+    def createContactNumCommandAgain(self):
+        return input("Please enter number without space: ")
     
     # create event command
     def createEventDescCommand(self):
@@ -83,6 +87,6 @@ class Command:
         replace_text = input("Enter replaced text: ")
         return search_text,replace_text
     
-    def get_dispaly_option(self):
+    def get_display_option(self):
         return int(input("Enter display option: 1,2,3,4,5,6: "))
     
