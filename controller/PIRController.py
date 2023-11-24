@@ -136,7 +136,7 @@ class PIRController:
                         print("invalid input, please === enter ! === or === press enter ===") 
                 found_list =  pircollection.not_ornot_filter_text(text_condition[0],text_condition[1])         
                 print(found_list)
-                # print(pircollection.get_index(found_list))
+                print(pircollection.get_index(found_list))
                 return found_list
             if search_filter == 2:
             #search with combined logic
@@ -171,7 +171,7 @@ class PIRController:
                 for text_condition in text_conditions:
                     filtered_list.append(pircollection.not_ornot_filter_text(text_condition[0],text_condition[1]))     
                 found_list = self.get_union_or_intersection(filtered_list,operators)       
-                # print(pircollection.get_index(found_list))
+                print(pircollection.get_index(found_list))
                 return found_list
             else:
                 print("invalid input,please enter int number 1~2")
@@ -196,7 +196,7 @@ class PIRController:
                         print("invalid input, please === enter ! === or === press enter ===") 
                 found_list =  pircollection.not_ornot_filter_text(text_condition[0],text_condition[1])         
                 print(found_list)
-                # print(pircollection.get_index(found_list))
+                print(pircollection.get_index(found_list))
                 return found_list
             #search with single time
             if search_filter == 2:
@@ -213,7 +213,7 @@ class PIRController:
                         print("invalid input, please === enter ! === or === press enter ===")   
                 found_list =  pircollection.not_ornot_filter_time(not_ornot,time_condition[0],time_condition[1]) 
                 print(found_list)
-                # print(pircollection.get_index(found_list))  
+                print(pircollection.get_index(found_list))  
                 return found_list
             #search with combined logic
             if search_filter == 3:
@@ -251,7 +251,7 @@ class PIRController:
                         filtered_list.append(pircollection.not_ornot_filter_time(condition[0],condition[2],condition[3])) 
 
                 found_list = self.get_union_or_intersection(filtered_list,operators)       
-                # print(pircollection.get_index(found_list))
+                print(pircollection.get_index(found_list))
                 return found_list
             else:
                 print("invalid input,please enter int number 1~2")
