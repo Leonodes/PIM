@@ -26,9 +26,20 @@ Group Report     2023/10/01 23:59   Group Report,2023/10/01 23:59   c28 = True
 Assignment 1     2023/10/11 23:59   Assignment 1,2023/10/11 23:59   c28 = False , c30 = True
 
 matches_text:
+text criteria = time
+text = time, Address, Deadline
+text    Expected result   BranchesCovered
+time    time              c18 = True
 
 
 matches_time:
+time criteria: 2023/11/29 23:59
+time: 2023/10/01 23:59, 2023/11/29 23:59, 2023/12/01 23:59
+condition    Expected result      BranchesCovered
+<            2023/10/01 23:59     c31 = True
+>            2023/12/01 23:59     c31 = False, c33 = True
+=            2023/11/29 23:59     c31 = False, c33 = False, c35 = True
+!            pass                 c31 = False, c33 = False, c35 = False, c37 = True
 
 findIndex:
 Search matches     Expected result       BranchesCovered
@@ -39,17 +50,33 @@ Search matches     Expected result       BranchesCovered
 5                  End                   c49 = False, c51 = False, c53 = False, c55 = False, 57 = True
 
 matches_type:
-
+type 1 Content:hello
+search type   Expected result      BranchesCovered
+1             hello                c68 = True
+7             (none)               c68 = False, c70 = True
 
 not_included_file:
+found line   Expected result   BranchesCovered
+hi           hi                c78 = True
 
 not_ornot_filter_text:
+search: hi
+text: hi, hello, bye
+not_ornot    Expected result   BranchesCovered
+-            hello, bye        c83 = True
++            hi                c83 = False, c85 = True
 
 not_ornot_filter_time:
+search: 2023/10/01 23:59
+time: 2023/10/01 23:59, 2023/11/01 23:59
+not_ornot    Expected result    BranchesCovered
+-            2023/11/01 23:59   c90 = True
++            2023/10/01 23:59   c90 = False, c92 = True
 
-get_index:
-
-
+get index:
+found line    Expected result    BranchesCovered
+'Note'        [1]                c111 = True
+'Test'        []                 c111 = False
 
 
 delete:
