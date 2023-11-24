@@ -3,11 +3,11 @@ class Command:
         pass
 
     def mainCommand(self):
-        return int(input("Please choose what you want to do. 1, 2, 3, 4, 5, 6: "))
+        return input("Please choose what you want to do. 1, 2, 3, 4, 5, 6: ")
     
     # choice for creating PIR
     def createCommand(self):
-        return int(input("Please enter 1, 2, 3, 4, 5 to choose what you want to do: "))
+        return input("Please enter 1, 2, 3, 4, 5 to choose what you want to do: ")
 
     # create note command
     def createNoteCommand(self):
@@ -44,7 +44,7 @@ class Command:
         return input("Enter date and alarm time for this event( in format YYYY/MM/DD hh:mm): ")
     
     def searchTypeCommand(self):
-        return int(input("Please enter 1, 2, 3, 4, 5, 6 to choose what you want to do. "))
+        return input("Please enter 1, 2, 3, 4, 5, 6 to choose what you want to do. ")
 
     def get_logical_condition_withtime(self):
         conditon = input("Enter condition (time, value, condition) or (text, value): , or PRESS \"enter\" to finish. ")
@@ -65,11 +65,11 @@ class Command:
         return operator
     
     def get_search_filterNoteContact(self):
-        searchFilter = int(input("Please enter 1, 2 to choose what you want to do: "))
+        searchFilter = input("Please enter 1, 2 to choose what you want to do: ")
         return searchFilter        
 
     def get_search_filterTaskEvent(self):
-        searchFilter = int(input("Please enter 1, 2, 3 to choose what you want to do.: "))
+        searchFilter = input("Please enter 1, 2, 3 to choose what you want to do.: ")
         return searchFilter
 
     def get_logical_condition_time(Self):
@@ -78,7 +78,7 @@ class Command:
         return conditon
     
     def get_modify_option(self):
-        return int(input("Please enter 1, 2 to choose what you want to do.: "))
+        return input("Please enter 1, 2 to choose what you want to do.: ")
     
     def get_modify_text(self):
         search_text = input("Enter original text you want to modify: ")
@@ -86,5 +86,5 @@ class Command:
         return search_text,replace_text
     
     def get_display_option(self):
-        return int(input("Please enter 1, 2, 3, 4, 5, 6 to choose what you want to do: "))
+        return input("Please enter 1, 2, 3, 4, 5, 6 to choose what you want to do: ")
     

@@ -25,6 +25,9 @@ class PIRController:
             enter = Command()
             board.mainBoard()
             activity = enter.mainCommand()
+            while not activity.isnumeric():
+                board.getValidInput()
+                activity = enter.mainCommand()
             if activity == 1:
                 self.create()
             elif activity == 2:
@@ -46,6 +49,9 @@ class PIRController:
             board = Board()
             board.createBoard() 
             command = enter.createCommand()
+            while not command.isnumeric():
+                board.getValidInput()
+                command = enter.createCommand()
             pircollection = PIRCollection()
             if command == 1: # Note
                 get_content = enter.createNoteCommand()
@@ -101,7 +107,10 @@ class PIRController:
         board.searchTypeBoard()
         pircollection = PIRCollection()
         while True:
-            searchType = int(enter.searchTypeCommand())
+            searchType = enter.searchTypeCommand()
+            while not searchType.isnumeric():
+                board.getValidInput()
+                searchType = enter.searchTypeCommand()       
             if searchType in range(1,6):
                 pircollection.updateSearchType(searchType)
                 break
@@ -115,6 +124,9 @@ class PIRController:
         if pircollection.searchType == 1 or pircollection.searchType == 3:
             board.searchFilterForNoteContact()
             search_filter = enter.get_search_filterNoteContact()
+            while not search_filter.isnumeric():
+                board.getValidInput()
+                search_filter = enter.get_search_filterNoteContact()
             #search with single text
             if search_filter == 1:
                 text_condition = enter.get_logical_condition_text()
@@ -174,6 +186,9 @@ class PIRController:
         else:
             board.searchFilterForTaskEvent()
             search_filter = enter.get_search_filterTaskEvent()
+            while not search_filter.isnumeric():
+                board.getValidInput()
+                search_filter = enter.get_search_filterTaskEvent()
 
             #search with single text
             if search_filter == 1:
@@ -294,6 +309,9 @@ class PIRController:
         enter = Command()
         while True:
             modify_option = enter.get_modify_option()
+            while not modify_option.isnumeric():
+                board.getValidInput()
+                modify_option = enter.get_modify_option()
             if modify_option == 1 or modify_option ==2:
                 break
             else:
@@ -317,6 +335,9 @@ class PIRController:
         board = Board()
         while True:
             display_option = enter.get_display_option()
+            while not display_option.isnumeric():
+                board.getValidInput()
+                display_option = enter.get_display_option()
             if display_option in range(1,7):
                 break
             else:
