@@ -8,16 +8,6 @@ class Command:
     # choice for creating PIR
     def createCommand(self):
         return int(input("Please enter 1, 2, 3, 4, 5 to choose what you want to do: "))
-    
-    def createCommandAgain(self):
-        return int(input("Your input is wrong. Please enter 1, 2, 3, 4, 5 to choose again:"))
-    
-    # create date command
-    def getDateTaskCommand(self):
-        return input("Enter date and time for task ( in format YYYY/MM/DD hh:mm): ")
-    
-    def getDateTaskCommandAgain(self):
-        return input("Enter the right format date for task:")
 
     # create note command
     def createNoteCommand(self):
@@ -27,6 +17,10 @@ class Command:
     # create task (text) command
     def createTaskTextCommand(self):
         return input("Enter task text:")
+    
+    # create date command
+    def getDateTaskCommand(self):
+        return input("Enter date and time for task ( in format YYYY/MM/DD hh:mm): ")
     
     # create contact command
     def createContactNameCommand(self):
@@ -38,9 +32,6 @@ class Command:
     def createContactMobileNumCommand(self):
         return input("Enter a contact number: ")
     
-    def createContactNumCommandAgain(self):
-        return input("Please enter number without space: ")
-    
     # create event command
     def createEventDescCommand(self):
         return input("Enter a description for this event: ")
@@ -49,17 +40,9 @@ class Command:
     def getDateStartCommand(self):
         return input("Enter date and time for event start time( in format YYYY/MM/DD hh:mm): ")
     
-    def getDateStartCommandAgain(self):
-        return input("Enter the right format date for start time:")
-    
     def getDateAlarmCommand(self):
         return input("Enter date and alarm time for this event( in format YYYY/MM/DD hh:mm): ")
     
-    def getDateAlarmCommandAgain(self):
-        return input("Enter the right format date for this alarm:")
-    
-
-
     def searchTypeCommand(self):
         return int(input("Please enter 1, 2, 3, 4, 5, 6 to choose what you want to do. "))
 
@@ -68,7 +51,7 @@ class Command:
         conditon = conditon.split(",")
         return conditon
     
-    def get_logical_condition_text(Self):
+    def get_logical_condition_text(self):
         conditon = input("Enter text filter: ")
         conditon = conditon.split(",")
         return conditon

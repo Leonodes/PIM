@@ -5,11 +5,7 @@
 # from controller.findIndex import findIndex
 
 class PIRView:
-    # def __init__(self):
-    #     self.notes = Note
-    #     self.tasks = Task
-    #     self.events = Event
-    #     self.contacts = Contact
+    
 
     # @staticmethod
     def NoteDetail(content):
