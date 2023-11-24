@@ -287,6 +287,7 @@ class PIRController:
         found_list = self.search()
         index_list = pircollection.get_index(found_list)
         pircollection.delete(index_list)
+        board.successDelete()
 
     def modify(self):
         board = Board()
@@ -302,19 +303,21 @@ class PIRController:
         if modify_option == 1:
             search_text, replace_text = enter.get_modify_text()
             pircollection.replace_global(search_text,replace_text)
+            board.successModify()
         else:
             board.modify_specific()
             found_list = self.search()
             index_list = pircollection.get_index(found_list)
             search_text, replace_text = enter.get_modify_text()
             pircollection.replace_specific(search_text,replace_text,index_list)
+            board.successModify()
     
     def display(self):
         pircollection = PIRCollection()
         enter = Command()
         board = Board()
         while True:
-            display_option = enter.get_dispaly_option()
+            display_option = enter.get_display_option()
             if display_option in range(1,7):
                 break
             else:
