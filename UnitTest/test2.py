@@ -98,8 +98,8 @@ class PIMTest(unittest.TestCase):
 
     def test_updateTask(self):
         task = Task("Assignment 2","2023/11/01 23:59")
-        task.Description = self.Description
-        task.DDL = self.DDL
+        task.description = self.Description
+        task.deadline = self.DDL
         result = task.updateTask("Assignment 3", "2023/11/29 23:59")
         self.assertEqual(task.description, "Assignment 3")
         self.assertEqual(task.deadline, "2023/11/29 23:59")
