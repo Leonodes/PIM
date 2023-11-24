@@ -43,65 +43,67 @@ class PIRController:
                 board.getValidInput()
      
     def create(self):
-        enter = Command()
-        board = Board()
-        # print("1. Create Quick Notes")
-        # print("2. Create tasks.")
-        # print("3. Create contacts.")
-        # print("4. Create events.")
-        board.createBoard() # print commands instruction
-        # command = int(input("Please enter 1, 2, 3, 4 to choose what you want to create.\n"))
-        command = enter.createCommand() # ask user to input
-        # insert PIR into PIM file
-        if command == 1: # Note
-            get_content = enter.createNoteCommand()
-            note = Note('')
-            note.setNote(get_content)
-            insert(note.NoteToPIR(),findIndex("note"))
-            board.successCreate()
-        elif command == 2: #Task
-            get_date = enter.getDateCommand()
-            while not checkDateFormat(get_date):
-                get_date = enter.getDateCommandAgain()
-            date = get_date
-            taskItem = enter.createTaskTextCommand()
-            task = Task('','')
-            task.setTask(taskItem,date)
-            insert(task.TaskToPIR(), findIndex("task"))
-            board.successCreate()
-        elif command == 3: # Contact
-            # get_name = input("Enter a name for contact item:")
-            get_name = enter.createContactNameCommand()
-            # get_addr = input("Enter an address for contact item: ")
-            get_addr = enter.createContactAddrCommand()
-            # get_mobileNum = int(input("Enter a number for contact item"))
-            get_mobileNum = enter.createContactMobileNumCommand()
-            
-            contact = Contact('','','')
-            contact.setContact(get_name, get_addr,get_mobileNum)
-            insert(contact.ContactToPIR(), findIndex("contact"))
-            board.successCreate()
-        elif command == 4: # Event
-            # get_description = input("Enter a description for this event: ")
-            get_description = enter.createEventDescCommand()
-            # get_start_time = input("Enter start time for event item (MM/dd/yy hh:mm): ")
-            get_start_time = enter.getDateCommand()
-            while not checkDateFormat(get_start_time):
-                # print("Enter the right format date for start time:")
-                # get_start_time = input()
-                get_start_time = enter.getDateCommandAgain()
-            # get_alarm = input("Enter a time to alarm you (MM/dd/yy hh:mm):")
-            get_alarm = enter.getDateCommand()
-            while not checkDateFormat(get_alarm):
-                # print("Enter the right format date for alarm time:")
-                # get_alarm = input()
-                get_alarm = enter.getDateCommandAgain()
-            event = Event('','','')
-            event.setEvent(get_description, get_start_time, get_alarm)
-            insert(event.EventToPIR(), findIndex("event"))
-            board.successCreate()
-        else:
-            command = enter.createCommandAgain() # ask user to input again
+        while True:
+            enter = Command()
+            board = Board()
+            # print("1. Create Quick Notes")
+            # print("2. Create tasks.")
+            # print("3. Create contacts.")
+            # print("4. Create events.")
+            board.createBoard() # print commands instruction
+            # command = int(input("Please enter 1, 2, 3, 4 to choose what you want to create.\n"))
+            command = enter.createCommand() # ask user to input
+            # insert PIR into PIM file
+            if command == 1: # Note
+                get_content = enter.createNoteCommand()
+                note = Note('')
+                note.setNote(get_content)
+                insert(note.NoteToPIR(),findIndex("note"))
+                board.successCreate()
+            elif command == 2: #Task
+                get_date = enter.getDateTaskCommand()
+                while not checkDateFormat(get_date):
+                    get_date = enter.getDateTaskCommandAgain()
+                date = get_date
+                taskItem = enter.createTaskTextCommand()
+                task = Task('','')
+                task.setTask(taskItem,date)
+                insert(task.TaskToPIR(), findIndex("task"))
+                board.successCreate()
+            elif command == 3: # Contact
+                # get_name = input("Enter a name for contact item:")
+                get_name = enter.createContactNameCommand()
+                # get_addr = input("Enter an address for contact item: ")
+                get_addr = enter.createContactAddrCommand()
+                # get_mobileNum = int(input("Enter a number for contact item"))
+                get_mobileNum = enter.createContactMobileNumCommand()
+                contact = Contact('','','')
+                contact.setContact(get_name, get_addr,get_mobileNum)
+                insert(contact.ContactToPIR(), findIndex("contact"))
+                board.successCreate()
+            elif command == 4: # Event
+                # get_description = input("Enter a description for this event: ")
+                get_description = enter.createEventDescCommand()
+                # get_start_time = input("Enter start time for event item (MM/dd/yy hh:mm): ")
+                get_start_time = enter.getDateStartCommand()
+                while not checkDateFormat(get_start_time):
+                    # print("Enter the right format date for start time:")
+                    # get_start_time = input()
+                    get_start_time = enter.getDateStartCommandAgain()
+                # get_alarm = input("Enter a time to alarm you (MM/dd/yy hh:mm):")
+                get_alarm = enter.getDateAlarmCommand()
+                while not checkDateFormat(get_alarm):
+                    # print("Enter the right format date for alarm time:")
+                    # get_alarm = input()
+                    get_alarm = enter.getDateAlarmCommandAgain()
+                event = Event('','','')
+                event.setEvent(get_description, get_start_time, get_alarm)
+                insert(event.EventToPIR(), findIndex("event"))
+                board.successCreate()
+            elif command == 5:
+                break
+            else:
+                command = enter.createCommandAgain() # ask user to input again
 
     def search(self):
         enter = Command()
@@ -138,7 +140,7 @@ class PIRController:
                         print("invalid input, please === enter ! === or === press enter ===") 
                 found_list =  pircollection.not_ornot_filter_text(text_condition[0],text_condition[1])         
                 print(found_list)
-                # print(pircollection.get_index(found_list))
+                print(pircollection.get_index(found_list))
                 return found_list
             if search_filter == 2:
             #search with combined logic
@@ -173,7 +175,7 @@ class PIRController:
                 for text_condition in text_conditions:
                     filtered_list.append(pircollection.not_ornot_filter_text(text_condition[0],text_condition[1]))     
                 found_list = self.get_union_or_intersection(filtered_list,operators)       
-                # print(pircollection.get_index(found_list))
+                print(pircollection.get_index(found_list))
                 return found_list
             else:
                 print("invalid input,please enter int number 1~2")
@@ -198,7 +200,7 @@ class PIRController:
                         print("invalid input, please === enter ! === or === press enter ===") 
                 found_list =  pircollection.not_ornot_filter_text(text_condition[0],text_condition[1])         
                 print(found_list)
-                # print(pircollection.get_index(found_list))
+                print(pircollection.get_index(found_list))
                 return found_list
             #search with single time
             if search_filter == 2:
@@ -215,7 +217,7 @@ class PIRController:
                         print("invalid input, please === enter ! === or === press enter ===")   
                 found_list =  pircollection.not_ornot_filter_time(not_ornot,time_condition[0],time_condition[1]) 
                 print(found_list)
-                # print(pircollection.get_index(found_list))  
+                print(pircollection.get_index(found_list))  
                 return found_list
             #search with combined logic
             if search_filter == 3:
@@ -253,7 +255,7 @@ class PIRController:
                         filtered_list.append(pircollection.not_ornot_filter_time(condition[0],condition[2],condition[3])) 
 
                 found_list = self.get_union_or_intersection(filtered_list,operators)       
-                # print(pircollection.get_index(found_list))
+                print(pircollection.get_index(found_list))
                 return found_list
             else:
                 print("invalid input,please enter int number 1~2")
