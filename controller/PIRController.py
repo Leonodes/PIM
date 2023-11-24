@@ -319,9 +319,20 @@ class PIRController:
             pircollection.replace_specific(search_text,replace_text,index_list)
     
     def display(self):
+        pircollection = PIRCollection()
+        enter = Command()
         board = Board()
-        board.displayBoard()
-        board.display()
+        while True:
+            display_option = enter.get_dispaly_option()
+            if display_option in range(1,7):
+                break
+            else:
+                board.getValidInput() 
+        pircollection.updateSearchType(display_option)
+        content_to_display = pircollection.matches_type()
+        if display_option in range(1,6):
+            for lines in content_to_display:
+                print(lines)
 
         
 
