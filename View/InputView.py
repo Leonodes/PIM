@@ -14,7 +14,7 @@ class Command:
     
     # create date command
     def getDateCommand(self):
-        return input("Enter date and time for task item ( in format MM/dd/yy hh:mm): ")
+        return input("Enter date and time for task item ( in format YYYY/MM/DD hh:mm): ")
     
     def getDateCommandAgain(self):
         return input("Enter the right format date for task item:")
