@@ -1,5 +1,7 @@
 import sys
-sys.path.append('C:\\Users\\Leon\\Desktop\\COMP3211\\PIM_group\\PIM')
+import os
+path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(path)
 from model.PIRNote import Note
 from model.PIRTask import Task
 from model.PIREvent import Event
@@ -134,7 +136,7 @@ class PIRController:
                         print("invalid input, please === enter ! === or === press enter ===") 
                 found_list =  pircollection.not_ornot_filter_text(text_condition[0],text_condition[1])         
                 print(found_list)
-                print(pircollection.get_index(found_list))
+                # print(pircollection.get_index(found_list))
                 return found_list
             if search_filter == 2:
             #search with combined logic
@@ -169,7 +171,7 @@ class PIRController:
                 for text_condition in text_conditions:
                     filtered_list.append(pircollection.not_ornot_filter_text(text_condition[0],text_condition[1]))     
                 found_list = self.get_union_or_intersection(filtered_list,operators)       
-                print(pircollection.get_index(found_list))
+                # print(pircollection.get_index(found_list))
                 return found_list
             else:
                 print("invalid input,please enter int number 1~2")
@@ -194,7 +196,7 @@ class PIRController:
                         print("invalid input, please === enter ! === or === press enter ===") 
                 found_list =  pircollection.not_ornot_filter_text(text_condition[0],text_condition[1])         
                 print(found_list)
-                print(pircollection.get_index(found_list))
+                # print(pircollection.get_index(found_list))
                 return found_list
             #search with single time
             if search_filter == 2:
@@ -211,7 +213,7 @@ class PIRController:
                         print("invalid input, please === enter ! === or === press enter ===")   
                 found_list =  pircollection.not_ornot_filter_time(not_ornot,time_condition[0],time_condition[1]) 
                 print(found_list)
-                print(pircollection.get_index(found_list))  
+                # print(pircollection.get_index(found_list))  
                 return found_list
             #search with combined logic
             if search_filter == 3:
@@ -249,7 +251,7 @@ class PIRController:
                         filtered_list.append(pircollection.not_ornot_filter_time(condition[0],condition[2],condition[3])) 
 
                 found_list = self.get_union_or_intersection(filtered_list,operators)       
-                print(pircollection.get_index(found_list))
+                # print(pircollection.get_index(found_list))
                 return found_list
             else:
                 print("invalid input,please enter int number 1~2")
@@ -437,63 +439,5 @@ if __name__ == '__main__':
 
     #     return get_description, get_start_time, get_alarm
     
-    # Display PIRs
 
-    # def displayAll():
-    #     view = PIRView()
-    #     noteStart = 1
-    #     noteEnd = findIndex("note") #taskStart = noteEnd+2
-    #     taskEnd = findIndex("task") #contactStart = taskEnd+2
-    #     contactEnd = findIndex("contact") #eventStart = contactEnd+2
-    #     eventEnd = findIndex("event")
-        
-    #     with open("records.pim", "r") as file:
-    #         lines = file.readlines()
-    #     for i, line in enumerate(lines):
-    #         if i >= noteStart & i <= noteEnd:
-    #             view.NoteDetail(line) # line is content
-    #         if i >= noteEnd+2 & i <= taskEnd:
-    #             taskDescr, deadline = line.strip().split(",")
-    #             view.TaskDetail(taskDescr, deadline)
-    #         if i >= taskEnd+2 & i <= contactEnd:
-    #             name, address, mobileNum = line.strip().split(",")
-    #             view.ContactDetail(name, address, mobileNum)
-    #         if i >= contactEnd+2 & i <= eventEnd:
-    #             eventDescr, startTime, alarm = line.strip().split(",")
-    #             view.ContactDetail(eventDescr, startTime, alarm)
-    
-    # def displayNote(index):
-    #     noteView = PIRView()
-    #     with open("records.pim", "r") as file:
-    #         lines = file.readlines()
-    #     for i, line in enumerate(lines):
-    #         if i == index:
-    #             noteView.NoteDetail(line) # line is content
-
-    # def displayTask(index):
-    #     taskView = PIRView()
-    #     with open("records.pim", "r") as file:
-    #         lines = file.readlines()
-    #     for i, line in enumerate(lines):
-    #         if i == index:
-    #             taskDescr, deadline = line.strip().split(",")
-    #             taskView.TaskDetail(taskDescr, deadline)
-    
-    # def displayContact(index):
-    #     contactView = PIRView()
-    #     with open("records.pim", "r") as file:
-    #         lines = file.readlines()
-    #     for i, line in enumerate(lines):
-    #         if i == index:
-    #             name, address, mobileNum = line.strip().split(",")
-    #             contactView.ContactDetail(name, address, mobileNum)
-    
-    # def displayEvent(index):
-    #     eventView = PIRView()
-    #     with open("records.pim", "r") as file:
-    #         lines = file.readlines()
-    #     for i, line in enumerate(lines):
-    #         if i == index:
-    #             eventDescr, startTime, alarm = line.strip().split(",")
-    #             eventView.ContactDetail(eventDescr, startTime, alarm)
 
