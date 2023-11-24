@@ -42,57 +42,56 @@ class PIRController:
             board = Board()
             board.createBoard() 
             command = enter.createCommand()
-            while not command.isnumeric():
-                board.getValidInput()
-                command = enter.createCommand()
-            pircollection = PIRCollection()
-            if command == 1: # Note
-                get_content = enter.createNoteCommand()
-                note = Note('')
-                note.setNote(get_content)
-                pircollection.insert(note.NoteToPIR(),findIndex("note"))
-                board.successCreate()
-            elif command == 2: #Task
-                get_date = enter.getDateTaskCommand()
-                while not pircollection.checkDateFormat(get_date):
-                    board.getValidInput()
+            if self.check_int(command):
+                pircollection = PIRCollection()
+                command = int(command)
+                if command == 1: # Note
+                    get_content = enter.createNoteCommand()
+                    note = Note('')
+                    note.setNote(get_content)
+                    pircollection.insert(note.NoteToPIR(),findIndex("note"))
+                    board.successCreate()
+                elif command == 2: #Task
                     get_date = enter.getDateTaskCommand()
-                date = get_date
-                taskItem = enter.createTaskTextCommand()
-                task = Task('','')
-                task.setTask(taskItem,date)
-                pircollection.insert(task.TaskToPIR(), findIndex("task"))
-                board.successCreate()
-            elif command == 3: # Contact
-                get_name = enter.createContactNameCommand()
-                get_addr = enter.createContactAddrCommand()
-                get_mobileNum = enter.createContactMobileNumCommand()
-                while not get_mobileNum.isnumeric():
-                    board.getValidInput()
+                    while not pircollection.checkDateFormat(get_date):
+                        board.getValidInput()
+                        get_date = enter.getDateTaskCommand()
+                    date = get_date
+                    taskItem = enter.createTaskTextCommand()
+                    task = Task('','')
+                    task.setTask(taskItem,date)
+                    pircollection.insert(task.TaskToPIR(), findIndex("task"))
+                    board.successCreate()
+                elif command == 3: # Contact
+                    get_name = enter.createContactNameCommand()
+                    get_addr = enter.createContactAddrCommand()
                     get_mobileNum = enter.createContactMobileNumCommand()
-                contact = Contact('','','')
-                contact.setContact(get_name, get_addr,get_mobileNum)
-                pircollection.insert(contact.ContactToPIR(), findIndex("contact"))
-                board.successCreate()
-            elif command == 4: # Event
-                get_description = enter.createEventDescCommand()
-                get_start_time = enter.getDateStartCommand()
-                while not pircollection.checkDateFormat(get_start_time):
-                    board.getValidInput()
+                    while not get_mobileNum.isnumeric():
+                        board.getValidInput()
+                        get_mobileNum = enter.createContactMobileNumCommand()
+                    contact = Contact('','','')
+                    contact.setContact(get_name, get_addr,get_mobileNum)
+                    pircollection.insert(contact.ContactToPIR(), findIndex("contact"))
+                    board.successCreate()
+                elif command == 4: # Event
+                    get_description = enter.createEventDescCommand()
                     get_start_time = enter.getDateStartCommand()
-                get_alarm = enter.getDateAlarmCommand()
-                while not pircollection.checkDateFormat(get_alarm):
-                    board.getValidInput()
+                    while not pircollection.checkDateFormat(get_start_time):
+                        board.getValidInput()
+                        get_start_time = enter.getDateStartCommand()
                     get_alarm = enter.getDateAlarmCommand()
-                event = Event('','','')
-                event.setEvent(get_description, get_start_time, get_alarm)
-                pircollection.insert(event.EventToPIR(), findIndex("event"))
-                board.successCreate()
-            elif command == 5:
+                    while not pircollection.checkDateFormat(get_alarm):
+                        board.getValidInput()
+                        get_alarm = enter.getDateAlarmCommand()
+                    event = Event('','','')
+                    event.setEvent(get_description, get_start_time, get_alarm)
+                    pircollection.insert(event.EventToPIR(), findIndex("event"))
+                    board.successCreate()
+                elif command == 5:
+                    self.main()
                 break
             else:
                 board.getValidInput()
-                command = enter.createCommand()
 
     def search(self):
         enter = Command()
