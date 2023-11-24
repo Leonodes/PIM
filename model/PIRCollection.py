@@ -12,10 +12,11 @@ class PIRCollection:
     def matches_text(self,text_criteria):
         found_lines = []
         for line in self.type_content:
+            line = line.strip()
             parts = line.split(",")
             parts1 = line.split(" ")
             if text_criteria in parts or text_criteria in parts1:
-                found_lines.append(line.strip())
+                found_lines.append(line)
         return found_lines
     def matches_time(self,time_criteria,condition):
         found_lines = []
@@ -95,8 +96,9 @@ class PIRCollection:
             lines = file.readlines()
         index_list = []
         for index, line in enumerate(lines):
+            line = line.strip()
             for found_line in found_lines:
-                if found_line in line:
+                if found_line == line:
                     index_list.append(index)
         return index_list
     
@@ -104,7 +106,7 @@ class PIRCollection:
     def delete(self,line_number_list):
         with open(self.record_path, 'r') as file:
             lines = file.readlines()
-        for line_number in line_number_list:
+        for line_number in sorted(line_number_list,reverse=True):
             if line_number > 0 and line_number <= len(lines):
                 del lines[line_number]
         with open(self.record_path, 'w') as file:
@@ -135,9 +137,14 @@ class PIRCollection:
         with open(self.record_path,'w') as file:
             file.writelines(data)
 
-    def display(self):
-        for lines in self.type_content:
-            print(lines)
+    def insert(self,line_text, line_index):
+        # Read the existing contents of the file
+        with open(self.record_path, 'r') as file:
+            lines = file.readlines()
 
+        # Insert the new line at the specified position
+        lines.insert(line_index - 1, line_text + '\n')
 
-    
+        # Write the modified contents back to the file
+        with open(self.record_path, 'w') as file:
+            file.writelines(lines)
