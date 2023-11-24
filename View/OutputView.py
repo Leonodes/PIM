@@ -1,3 +1,5 @@
+from model.PIRCollection import PIRCollection
+from View.InputView import Command
 class Board:
     def __init__(self):
         pass
@@ -14,7 +16,7 @@ class Board:
         print("-       6.Exit the system                          -")
         print("----------------------------------------------------")
     
-    def createBoard():
+    def createBoard(self):
         print("----------------------------------------------------")
         print("-             Create data type to choose           -")
         print("----------------------------------------------------")
@@ -88,4 +90,19 @@ class Board:
         print("-                 5.Display All                    -")
         print("-                 6.Back to the Home Page          -")
         print("----------------------------------------------------")
+
+    def display(self):
+        pircollection = PIRCollection()
+        enter = Command()
+        while True:
+            display_option = enter.get_dispaly_option()
+            if display_option in range(1,7):
+                break
+            else:
+                print("invalid input,please enter int number 1~6") 
+        pircollection.updateSearchType(display_option)
+        content_to_display = pircollection.matches_type()
+        for lines in content_to_display:
+            print(lines)
+        
     
