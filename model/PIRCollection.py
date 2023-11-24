@@ -82,13 +82,14 @@ class PIRCollection:
     def not_ornot_filter_text(self,not_ornot,text_criteria):
         if not_ornot == "-":
             return self.not_included_file(self.matches_text(text_criteria))
-        if not_ornot == "+":
+        else:
             return self.matches_text(text_criteria)
+
 
     def not_ornot_filter_time(self,not_ornot,time_criteria,condition):
         if not_ornot == "-":
             return self.not_included_file(self.matches_time(time_criteria,condition))
-        if not_ornot == "+":
+        else:
             return self.matches_time(time_criteria,condition)
 
     def get_index(self,found_lines):
