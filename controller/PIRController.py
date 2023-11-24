@@ -13,33 +13,26 @@ from View.InputView import Command
 from View.OutputView import Board
 
 class PIRController:
-    def __init__(self):
-        self.notes = Note
-        self.tasks = Task
-        self.events = Event
-        self.contacts = Contact
-    
     def main(self):
         while True:
             board = Board()
             enter = Command()
             board.mainBoard()
             activity = enter.mainCommand()
-            while not activity.isnumeric():
-                board.getValidInput()
-                activity = enter.mainCommand()
-            if activity == 1:
-                self.create()
-            elif activity == 2:
-                self.search()
-            elif activity == 3:
-                self.modify()
-            elif activity == 4:
-                self.delete()
-            elif activity == 5:
-                self.display()
-            elif activity == 6:
-                sys.exit(0)
+            if self.check_int(activity):
+                activity = int(activity)
+                if activity == 1:
+                    self.create()
+                elif activity == 2:
+                    self.search()
+                elif activity == 3:
+                    self.modify()
+                elif activity == 4:
+                    self.delete()
+                elif activity == 5:
+                    self.display()
+                elif activity == 6:
+                    sys.exit(0)
             else:
                 board.getValidInput()
      
@@ -107,17 +100,18 @@ class PIRController:
         board.searchTypeBoard()
         pircollection = PIRCollection()
         while True:
-            searchType = enter.searchTypeCommand()
-            while not searchType.isnumeric():
-                board.getValidInput()
-                searchType = enter.searchTypeCommand()       
-            if searchType in range(1,6):
-                pircollection.updateSearchType(searchType)
+            searchType = int(enter.searchTypeCommand())
+            if self.check_int(searchType):
+                searchType = int(searchType)
+                if searchType in range(1,6):
+                    pircollection.updateSearchType(searchType)                  
+                elif searchType == 6:
+                    self.main()
+                else:
+                   board.getValidInput() 
                 break
-            elif searchType == 6:
-                self.main()
             else:
-                print("invalid input, please enter int number 1~6")
+                board.getValidInput()
         pircollection.matches_type()
 
         # Search Note, Contact
@@ -139,7 +133,7 @@ class PIRController:
                         text_condition.insert(0,"+")
                         break
                     else:
-                        print("invalid input, please === enter ! === or === press enter ===") 
+                        board.getValidInput() 
                 found_list =  pircollection.not_ornot_filter_text(text_condition[0],text_condition[1])         
                 print(found_list)
                 print(pircollection.get_index(found_list))
@@ -160,7 +154,7 @@ class PIRController:
                             text_condition.insert(0,"+")
                             break
                         else: 
-                            print("invalid input, please === enter ! === or === press enter ===")                   
+                            board.getValidInput()                   
                     text_conditions.append(text_condition)
                     while True:
                         operator = enter.get_operator()
@@ -170,7 +164,7 @@ class PIRController:
                         if operator == "":
                             break
                         else:
-                            print("invalid input, please enter === || === or === && ===")
+                            board.getValidInput()
                     if operator == "":
                         break
                 filtered_list = []
@@ -180,7 +174,7 @@ class PIRController:
                 print(pircollection.get_index(found_list))
                 return found_list
             else:
-                print("invalid input,please enter int number 1~2")
+                board.getValidInput()
         
         # Search Task, Event
         else:
@@ -202,7 +196,7 @@ class PIRController:
                         text_condition.insert(0,"+")
                         break
                     else:
-                        print("invalid input, please === enter ! === or === press enter ===") 
+                        board.getValidInput() 
                 found_list =  pircollection.not_ornot_filter_text(text_condition[0],text_condition[1])         
                 print(found_list)
                 print(pircollection.get_index(found_list))
@@ -219,7 +213,7 @@ class PIRController:
                         not_ornot = "+"
                         break
                     else:
-                        print("invalid input, please === enter ! === or === press enter ===")   
+                        board.getValidInput()   
                 found_list =  pircollection.not_ornot_filter_time(not_ornot,time_condition[0],time_condition[1]) 
                 print(found_list)
                 print(pircollection.get_index(found_list))  
@@ -239,7 +233,7 @@ class PIRController:
                             condition.insert(0,"+")
                             break
                         else: 
-                            print("invalid input, please === enter ! === or === press enter ===")                   
+                            board.getValidInput()                   
                     conditions.append(condition)
                     while True:
                         operator = enter.get_operator()
@@ -249,7 +243,7 @@ class PIRController:
                         if operator == "":
                             break
                         else:
-                            print("invalid input, please enter === || === or === && ===")
+                            board.getValidInput()                    
                     if operator == "":
                         break
                 filtered_list = []
@@ -263,7 +257,7 @@ class PIRController:
                 print(pircollection.get_index(found_list))
                 return found_list
             else:
-                print("invalid input,please enter int number 1~2")
+                board.getValidInput()
         
     def get_union_or_intersection(self,filtered_list,operators):      
         list2 = [None] * (len(filtered_list) - 1) 
@@ -304,30 +298,39 @@ class PIRController:
         board.successDelete()
 
     def modify(self):
-        board = Board()
-        board.modifyBoard()
-        enter = Command()
         while True:
-            modify_option = enter.get_modify_option()
-            while not modify_option.isnumeric():
-                board.getValidInput()
+            board = Board()
+            board.modifyBoard()
+            enter = Command()
+            while True:
                 modify_option = enter.get_modify_option()
-            if modify_option == 1 or modify_option ==2:
-                break
-            else:
-                print("invalid input,please enter int number 1~2")
-        pircollection = PIRCollection()
-        if modify_option == 1:
-            search_text, replace_text = enter.get_modify_text()
-            pircollection.replace_global(search_text,replace_text)
-            board.successModify()
-        else:
-            board.modify_specific()
-            found_list = self.search()
-            index_list = pircollection.get_index(found_list)
-            search_text, replace_text = enter.get_modify_text()
-            pircollection.replace_specific(search_text,replace_text,index_list)
-            board.successModify()
+                if self.check_int(modify_option):
+                    modify_option = int(modify_option)
+                    if modify_option in range(1,4):
+                        pircollection = PIRCollection()
+                        if modify_option == 1:
+                            search_text, replace_text = enter.get_modify_text()
+                            pircollection.replace_global(search_text,replace_text)
+                            board.successModify()
+                        elif modify_option == 2:
+                            board.modify_specific()
+                            found_list = self.search()
+                            index_list = pircollection.get_index(found_list)
+                            if len(index_list) == 0:
+                                board.modify_nothing()
+                                board.modifyBoard()
+                                continue
+                            search_text, replace_text = enter.get_modify_text()
+                            pircollection.replace_specific(search_text,replace_text,index_list)
+                            board.successModify()
+                        else:
+                            self.main()
+                        break
+                    else:
+                        board.getValidInput()
+                else:
+                    board.getValidInput()
+
     
     def display(self):
         pircollection = PIRCollection()
@@ -348,16 +351,15 @@ class PIRController:
             for lines in content_to_display:
                 print(lines)
 
+    def check_int(self,string):
+        try:
+            int(string)
+            return True
+        except ValueError:
+            return False
         
 
 if __name__ == '__main__':
     pircontroller = PIRController()
     pircontroller.main()
         
-
-
-
-if __name__ == '__main__':
-    pircontroller = PIRController()
-    pircontroller.search()
-

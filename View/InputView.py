@@ -78,7 +78,7 @@ class Command:
         return conditon
     
     def get_modify_option(self):
-        return input("Please enter 1, 2 to choose what you want to do.: ")
+        return input("Please enter 1, 2, 3 to choose modify option: ")
     
     def get_modify_text(self):
         search_text = input("Enter original text you want to modify: ")
