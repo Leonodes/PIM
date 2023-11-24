@@ -7,8 +7,6 @@ from model.PIRTask import Task
 from model.PIREvent import Event
 from model.PIRContact import Contact
 from model.PIRCollection import PIRCollection
-from controller.checkFormat import checkDateFormat,checkConditionFormat,checkOperatorFormat
-from insert_delete_replace_search import insert, delete, replace
 from findIndex import findIndex
 from View.PIRView import PIRView
 from View.InputView import Command
@@ -48,22 +46,23 @@ class PIRController:
             board = Board()
             board.createBoard() 
             command = enter.createCommand()
+            pircollection = PIRCollection()
             if command == 1: # Note
                 get_content = enter.createNoteCommand()
                 note = Note('')
                 note.setNote(get_content)
-                insert(note.NoteToPIR(),findIndex("note"))
+                pircollection.insert(note.NoteToPIR(),findIndex("note"))
                 board.successCreate()
             elif command == 2: #Task
                 get_date = enter.getDateTaskCommand()
-                while not checkDateFormat(get_date):
+                while not pircollection.checkDateFormat(get_date):
                     board.getValidInput()
                     get_date = enter.getDateTaskCommand()
                 date = get_date
                 taskItem = enter.createTaskTextCommand()
                 task = Task('','')
                 task.setTask(taskItem,date)
-                insert(task.TaskToPIR(), findIndex("task"))
+                pircollection.insert(task.TaskToPIR(), findIndex("task"))
                 board.successCreate()
             elif command == 3: # Contact
                 get_name = enter.createContactNameCommand()
@@ -74,21 +73,21 @@ class PIRController:
                     get_mobileNum = enter.createContactMobileNumCommand()
                 contact = Contact('','','')
                 contact.setContact(get_name, get_addr,get_mobileNum)
-                insert(contact.ContactToPIR(), findIndex("contact"))
+                pircollection.insert(contact.ContactToPIR(), findIndex("contact"))
                 board.successCreate()
             elif command == 4: # Event
                 get_description = enter.createEventDescCommand()
                 get_start_time = enter.getDateStartCommand()
-                while not checkDateFormat(get_start_time):
+                while not pircollection.checkDateFormat(get_start_time):
                     board.getValidInput()
                     get_start_time = enter.getDateStartCommand()
                 get_alarm = enter.getDateAlarmCommand()
-                while not checkDateFormat(get_alarm):
+                while not pircollection.checkDateFormat(get_alarm):
                     board.getValidInput()
                     get_alarm = enter.getDateAlarmCommand()
                 event = Event('','','')
                 event.setEvent(get_description, get_start_time, get_alarm)
-                insert(event.EventToPIR(), findIndex("event"))
+                pircollection.insert(event.EventToPIR(), findIndex("event"))
                 board.successCreate()
             elif command == 5:
                 break
