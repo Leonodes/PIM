@@ -25,3 +25,40 @@ Description      Deadline           Expected result                 BranchesCove
 Group Report     2023/10/01 23:59   Group Report,2023/10/01 23:59   c28 = True
 Assignment 1     2023/10/11 23:59   Assignment 1,2023/10/11 23:59   c28 = False , c30 = True
 
+matches_text:
+
+
+matches_time:
+
+findIndex:
+Search matches     Expected result       BranchesCovered
+1                  Note                  c49 = True
+2                  Task                  c49 = False, c51 = True
+3                  Contact               c49 = False, c51 = False, c53 = True
+4                  Event                 c49 = False, c51 = False, c53 = False, c55 = True
+5                  End                   c49 = False, c51 = False, c53 = False, c55 = False, 57 = True
+
+matches_type:
+
+
+not_included_file:
+
+not_ornot_filter_text:
+
+not_ornot_filter_time:
+
+get_index:
+
+
+
+
+delete:
+line len = 3
+line:
+line 1:hi, line 2:hihi, line3:hihihi         BranchesCovered
+line number     Expected result
+1               line 1:hihi, line2:hihihi    c110 = True
+
+checkDateFormat:
+date         Expected result      BranchesCovered
+(none)       False                c116 = True
