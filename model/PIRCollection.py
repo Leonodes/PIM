@@ -143,7 +143,7 @@ class PIRCollection:
             lines = file.readlines()
 
         # Insert the new line at the specified position
-        lines.insert(line_index - 1, line_text + '\n')
+        lines.insert(line_index , line_text + '\n')
 
         # Write the modified contents back to the file
         with open(self.record_path, 'w') as file:

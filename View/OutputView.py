@@ -70,6 +70,12 @@ class Board:
     def successCreate(self):
         print("You have successfully create a PIR and saved into records.")
     
+    def successModify(self):
+        print("You have successfully modify a PIR and saved into records.")
+
+    def successDelete(self):
+        print("You have successfully delete a PIR and saved into records.")
+    
     def deleteBoard(self):
         #first search for PIR, then delete(use delete function)
         print("please search for PIRs you want to delete")
