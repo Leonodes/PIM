@@ -78,7 +78,7 @@ class PIRController:
                     break
                 else:
                     board.getValidInput()
-            contact = Contact()
+            contact = Contact("","","")
             contact.setContact(get_name, get_addr,get_mobileNum)
             pircollection.insert(contact.ContactToPIR(), pircollection.findIndex(4))
             board.successCreate()
