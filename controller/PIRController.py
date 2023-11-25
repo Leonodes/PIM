@@ -10,6 +10,7 @@ from model.PIRCollection import PIRCollection
 from View.PIRView import PIRView
 from View.InputView import Command
 from View.OutputView import Board
+from View.PIRView import PIRView
 
 class PIRController:
     def main(self):
@@ -327,18 +328,46 @@ class PIRController:
         pircollection = PIRCollection()
         enter = Command()
         board = Board()
-        board.displayBoard()
         while True:
+            board.displayBoard()
             display_option = enter.get_display_option()
             if self.check_int(display_option):
                 display_option = int(display_option)
-                pircollection.updateSearchType(display_option)
-                content_to_display = pircollection.matches_type()
-                if display_option in range(1,6):
-                    for lines in content_to_display:
-                        print(lines)
+                pirview = PIRView()
+                if display_option in range(1,5):
+                    pircollection.updateSearchType(display_option)
+                    content_to_display = pircollection.matches_type()
+                    for line in content_to_display:
+                        line = line.split(",")
+                        if display_option == 1:
+                            pirview.NoteDetail(line[0])
+                        elif display_option == 2:
+                            pirview.TaskDetail(line[0],line[1])
+                        elif display_option == 3:
+                            pirview.ContactDetail(line[0],line[1],line[2])
+                        else:
+                            pirview.EventDetail(line[0],line[1],line[2])
+                    break       
+                elif display_option == 5:
+                    pircollection.updateSearchType(1)
+                    content_to_display = pircollection.matches_type()   
+                    for line in content_to_display:
+                        pirview.NoteDetail(line.split(",")[0])
+                    pircollection.updateSearchType(2)
+                    content_to_display = pircollection.matches_type()   
+                    for line in content_to_display:
+                        pirview.TaskDetail(line.split(",")[0],line.split(",")[1])
+                    pircollection.updateSearchType(3)
+                    content_to_display = pircollection.matches_type()   
+                    for line in content_to_display:
+                        pirview.ContactDetail(line.split(",")[0],line.split(",")[1],line.split(",")[2])
+                    pircollection.updateSearchType(4)
+                    content_to_display = pircollection.matches_type()   
+                    for line in content_to_display:
+                        pirview.EventDetail(line.split(",")[0],line.split(",")[1],line.split(",")[2])
                 elif display_option == 6:
                     self.main()
+                    break
                 else:
                     board.getValidInput()                    
             else:

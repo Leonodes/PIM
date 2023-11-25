@@ -7,21 +7,21 @@
 class PIRView:
     
 
-    # @staticmethod
+    @staticmethod
     def NoteDetail(content):
         # note = Note()
         print("Note: ")
         print("Content: "+ content)
         print("----------------------------------------------------")
     
-    # @staticmethod
+    @staticmethod
     def TaskDetail(description, deadline):
         print("Task: ")
         print("Description: " + description)
         print("Deadline: " + deadline)
         print("----------------------------------------------------")
     
-    # @staticmethod
+    @staticmethod
     def ContactDetail(name, address, mobileNum):
         print("Contact: ")
         print("Name: " + name)
@@ -29,7 +29,7 @@ class PIRView:
         print("Mobile Number" + mobileNum)
         print("----------------------------------------------------")
 
-    # @staticmethod
+    @staticmethod
     def EventDetail(description, start_time, alarm):
         print("Event:")
         print("Description: " + description)
