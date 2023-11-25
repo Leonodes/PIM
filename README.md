@@ -7,9 +7,3 @@ This project is mainly design to implement a personal information manager(PIM)<b
  - Chung Man TAM
  - Siyu ZHOU
 
-##### Manual for developer:
-To deploy the program: 
-- Please open our project in Visual Studio Code on Windows with extension "Python".
-- The Python Version is 3.9.6 64-bit.
-- You can compile our python file by "python ./main.py"
-- To start the debugging mode, you can....
