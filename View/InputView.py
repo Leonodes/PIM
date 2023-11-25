@@ -86,5 +86,5 @@ class Command:
         return search_text,replace_text
     
     def get_display_option(self):
-        return input("Please enter 1, 2, 3, 4, 5, 6 to choose what you want to do: ")
+        return input("Please enter 1, 2, 3, 4, 5 to choose what you want to display, or back to home page: ")
     

@@ -87,7 +87,9 @@ class Board:
 
     def modify_nothing(self):
         print("nothing to modify, please try again")
-
+    
+    def delete_nothing(self):
+        print("nothing to delete, please try again")
 
     def displayBoard(self):
         # displayall
