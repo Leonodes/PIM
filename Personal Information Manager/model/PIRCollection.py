@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+
 class PIRCollection:
     def __init__(self):
         self.searchType = "All"
@@ -66,7 +67,7 @@ class PIRCollection:
         with open(self.record_path, "r") as file:
             lines = file.readlines()
             if self.searchType == 1 or self.searchType == 2 or self.searchType == 3 or self.searchType == 4:
-                self.type_content = lines[self.findIndex(self.searchType)+1:self.findIndex(self.searchType+1)]
+                self.type_content = lines[self.findIndex(self.searchType)+2:self.findIndex(self.searchType+1)]
             else:
                 self.type_content = lines
         return self.type_content
