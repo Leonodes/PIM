@@ -55,7 +55,7 @@ class PIRController:
             get_content = enter.createNoteCommand()
             note = Note('')
             note.setNote(get_content)
-            pircollection.insert(note.NoteToPIR(),pircollection.findIndex("note"))
+            pircollection.insert(note.NoteToPIR(),pircollection.findIndex(2))
             board.successCreate()
         elif command == 2: #Task
             get_date = enter.getDateTaskCommand()
@@ -66,21 +66,20 @@ class PIRController:
             taskItem = enter.createTaskTextCommand()
             task = Task('','')
             task.setTask(taskItem,date)
-            pircollection.insert(task.TaskToPIR(), pircollection.findIndex("task"))
+            pircollection.insert(task.TaskToPIR(), pircollection.findIndex(3))
             board.successCreate()
         elif command == 3: # Contact
             get_name = enter.createContactNameCommand()
             get_addr = enter.createContactAddrCommand()
-            get_mobileNum = enter.createContactMobileNumCommand()
             while True:
                 get_mobileNum = enter.createContactMobileNumCommand()
                 if get_mobileNum.isnumeric():
                     break
                 else:
                     board.getValidInput()
-            contact = Contact('','','')
+            contact = Contact()
             contact.setContact(get_name, get_addr,get_mobileNum)
-            pircollection.insert(contact.ContactToPIR(), pircollection.findIndex("contact"))
+            pircollection.insert(contact.ContactToPIR(), pircollection.findIndex(4))
             board.successCreate()
         elif command == 4: # Event
             get_description = enter.createEventDescCommand()
@@ -94,7 +93,7 @@ class PIRController:
                 get_alarm = enter.getDateAlarmCommand()
             event = Event('','','')
             event.setEvent(get_description, get_start_time, get_alarm)
-            pircollection.insert(event.EventToPIR(), pircollection.findIndex("event"))
+            pircollection.insert(event.EventToPIR(), pircollection.findIndex("End"))
             board.successCreate()
         else:
             self.main()
