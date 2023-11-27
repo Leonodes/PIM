@@ -1,14 +1,7 @@
 import unittest
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-parent_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(parent_path)
-path = os.path.join(parent_path,"model")
-sys.path.append(path)
-from model.PIRCollection import PIRCollection
 from model.PIRNote import Note
 from model.PIRTask import Task
+
 #test for note
 class PIMTest(unittest.TestCase):
     def setUp(self) :
@@ -62,7 +55,11 @@ class PIMTest(unittest.TestCase):
     #     result = note.NoteToPIR()
     #     self.assertEqual(expected_result, result)
 
-
+    def test_updateNote(self):
+        note = Note("hi")
+        note.content = self.content
+        result = note.updateNote("Bye")
+        self.assertEqual(note.content, "Bye")
 
     #test for task
     def test_setTask(self):
@@ -98,6 +95,14 @@ class PIMTest(unittest.TestCase):
         expected_result = self.Description + "," + self.DDL
         result = task.TaskToPIR()
         self.assertEqual(expected_result, result)
+
+    def test_updateTask(self):
+        task = Task("Assignment 2","2023/11/01 23:59")
+        task.description = self.Description
+        task.deadline = self.DDL
+        result = task.updateTask("Assignment 3", "2023/11/29 23:59")
+        self.assertEqual(task.description, "Assignment 3")
+        self.assertEqual(task.deadline, "2023/11/29 23:59")
 
 if __name__ == '__main__':
     unittest.main()
